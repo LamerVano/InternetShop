@@ -1,0 +1,14 @@
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\DependencyInjection.dll
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\DependencyInjection.pdb
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\BuisnesLogic.dll
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\DataAccesLayer.dll
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\StructureMap.dll
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\Common.dll
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\BuisnesLogic.pdb
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\DataAccesLayer.pdb
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\StructureMap.xml
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\bin\Debug\Common.pdb
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\obj\Debug\DependencyInjection.csprojResolveAssemblyReference.cache
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\obj\Debug\DependencyInjection.csproj.CoreCompileInputs.cache
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\obj\Debug\DependencyInjection.dll
+D:\Vano1\Git\InternetShop\InternetShop\DependencyInjection\obj\Debug\DependencyInjection.pdb
