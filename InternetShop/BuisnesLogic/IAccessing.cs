@@ -9,6 +9,9 @@ namespace BuisnesLogic
 {
     public interface IAccessing
     {
-        Category[] GetCategories();
+        Category[] GetAllCategories();
+        Product[] GetProducts(int CategoryId);
+        bool AddCategory(string name);
+        bool AddProducts(Product product);
     }
 }

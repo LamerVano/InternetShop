@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DataAccesLayer;
+using Common;
 
 namespace InternetShop.Controllers
 {
@@ -16,12 +17,23 @@ namespace InternetShop.Controllers
         // GET: Main
         public ActionResult Main()
         {
-            return View(_accessing.GetCategories());
+            return View(_accessing.GetAllCategories());
         }
-        
-        public PartialViewResult Categories()
+
+        [HttpGet]
+        public ActionResult CreateCategory()
         {
-            return PartialView(_accessing.GetCategories());
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateCategory(Category category)
+        {
+            if (!_accessing.AddCategory(category.Name))
+            {
+                ViewBag.Message = "Не Добавлено";
+            }
+            return View();
         }
     }
 }

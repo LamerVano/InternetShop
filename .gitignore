@@ -1,1 +1,8 @@
 /InternetShop/.vs
+/InternetShop/InternetShop/bin
+/InternetShop/Database.ldf
+/InternetShop/Database.mdf
+/InternetShop/BuisnesLogic/bin
+/InternetShop/Common/bin
+/InternetShop/DataAccesLayer/bin
+/InternetShop/DependencyInjection/bin

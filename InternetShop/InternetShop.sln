@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccesLayer", "DataAcces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{7510D436-026E-4D22-A918-CFA7442E239F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{78092DD7-3CF7-4EEB-B790-B0235227C0EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7510D436-026E-4D22-A918-CFA7442E239F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7510D436-026E-4D22-A918-CFA7442E239F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7510D436-026E-4D22-A918-CFA7442E239F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78092DD7-3CF7-4EEB-B790-B0235227C0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78092DD7-3CF7-4EEB-B790-B0235227C0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78092DD7-3CF7-4EEB-B790-B0235227C0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78092DD7-3CF7-4EEB-B790-B0235227C0EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

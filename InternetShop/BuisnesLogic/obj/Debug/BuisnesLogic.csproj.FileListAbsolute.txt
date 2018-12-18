@@ -10,3 +10,5 @@ D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\obj\Debug\BuisnesLogic.dll
 D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\obj\Debug\BuisnesLogic.pdb
 D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\StructureMap.dll
 D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\StructureMap.xml
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\log4net.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\log4net.xml

@@ -9,6 +9,7 @@ namespace Common
     public interface IProduct: IModel
     {
         int ProductId { get; set; }
+        int CategoryId { get; set; }
         string Name { get; set; }
         decimal Cost { get; set; }
         string About { get; set; }
