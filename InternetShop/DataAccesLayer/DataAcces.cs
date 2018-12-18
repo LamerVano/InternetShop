@@ -55,7 +55,7 @@ namespace DataAccesLayer
 
                 SqlCommand command = new SqlCommand();
 
-                command.CommandText = "SELECT * FROM Products";
+                command.CommandText = String.Format("SELECT * FROM Products WHERE CategoryId={0}", CategoryId);
                 command.Connection = connection;
 
                 SqlDataReader reader = command.ExecuteReader();

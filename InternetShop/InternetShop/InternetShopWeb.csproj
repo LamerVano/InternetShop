@@ -142,6 +142,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
@@ -163,6 +164,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Main\Categories.cshtml" />
     <Content Include="Views\Main\CreateCategory.cshtml" />
+    <Content Include="Views\Products\Main.cshtml" />
+    <Content Include="Views\Products\Products.cshtml" />
+    <Content Include="Views\Products\CreateProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

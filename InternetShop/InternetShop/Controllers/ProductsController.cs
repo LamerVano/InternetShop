@@ -1,37 +1,37 @@
 ﻿using BuisnesLogic;
+using Common;
 using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DataAccesLayer;
-using Common;
 
 namespace InternetShop.Controllers
 {
-    public class MainController : Controller
+    public class ProductsController : Controller
     {
         private static IContainer _container = DependencyResolution.IoC.Initialize();
-        private Accessing _accessing = (Accessing) _container.GetInstance<IAccessing>();
-        // GET: Main
-        public ActionResult Main()
+        private Accessing _accessing = (Accessing)_container.GetInstance<IAccessing>();
+        // GET: Products
+        [HttpGet]
+        public ActionResult Main(string id)
         {
-            return View(_accessing.GetAllCategories());
+            return View(_accessing.GetProducts(Int32.Parse(id)));
         }
 
         [HttpGet]
-        public ActionResult CreateCategory()
+        public ActionResult CreateProducts(string id)
         {
-            return View();
+            return View(new Product() { CategoryId = Int32.Parse(id) });
         }
 
         [HttpPost]
-        public ActionResult CreateCategory(Category category)
+        public ActionResult CreateProducts(Product product, string id)
         {
             if (ModelState.IsValid)
             {
-                if (_accessing.AddCategory(category.Name))
+                if (_accessing.AddProducts(product))
                 {
                     return View();
                 }

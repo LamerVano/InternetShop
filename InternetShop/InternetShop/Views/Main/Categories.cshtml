@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Common.Category>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateCategory")
 </p>
 <table class="table">
     <tr>
@@ -15,6 +15,7 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+            @Html.ActionLink("To Products", "Main", "Products", new { id = item.CategoryId }, new { })
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
