@@ -1,0 +1,14 @@
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\BuisnesLogic.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\BuisnesLogic.pdb
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\Common.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\DataAccesLayer.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\Common.pdb
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\DataAccesLayer.pdb
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\obj\Debug\BuisnesLogic.csprojResolveAssemblyReference.cache
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\obj\Debug\BuisnesLogic.csproj.CoreCompileInputs.cache
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\obj\Debug\BuisnesLogic.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\obj\Debug\BuisnesLogic.pdb
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\StructureMap.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\StructureMap.xml
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\log4net.dll
+D:\Vano1\Git\InternetShop\InternetShop\BuisnesLogic\bin\Debug\log4net.xml
