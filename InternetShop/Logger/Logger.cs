@@ -1,4 +1,5 @@
 ﻿using log4net;
+using log4net.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,10 @@ namespace Logger
     public class Logger : ILogger
     {
         private readonly ILog log;
-        public Logger(string name)
+        public Logger(Type type)
         {
-            log = LogManager.GetLogger(name);
+            log = LogManager.GetLogger(type);
+            XmlConfigurator.Configure();
         }
         public void Debug(string message)
         {

@@ -48,3 +48,5 @@ D:\Vano1\Git\InternetShop\InternetShop\InternetShop\bin\System.Web.Http.xml
 D:\Vano1\Git\InternetShop\InternetShop\InternetShop\bin\System.Web.Http.WebHost.xml
 D:\Vano1\Git\InternetShop\InternetShop\InternetShop\bin\log4net.dll
 D:\Vano1\Git\InternetShop\InternetShop\InternetShop\bin\log4net.xml
+D:\Vano1\Git\InternetShop\InternetShop\InternetShop\bin\Logger.dll
+D:\Vano1\Git\InternetShop\InternetShop\InternetShop\bin\Logger.pdb
