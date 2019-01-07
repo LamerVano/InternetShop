@@ -8,14 +8,14 @@ using System.Web.Mvc;
 using DataAccesLayer;
 using Common;
 using Logger;
+using InternetShop.DependencyResolution;
 
 namespace InternetShop.Controllers
 {
     public class MainController : Controller
     {
         private Logger.Logger log = new Logger.Logger(typeof(MainController));
-        private static IContainer _container = DependencyResolution.IoC.Initialize();
-        private Accessing _accessing = (Accessing) _container.GetInstance<IAccessing>();
+        private Accessing _accessing = (Accessing) IoC.Initialize().GetInstance<IAccessing>();
         // GET: Main
         public ActionResult Main()
         {

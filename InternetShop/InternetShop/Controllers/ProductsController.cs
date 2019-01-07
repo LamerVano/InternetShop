@@ -1,5 +1,6 @@
 ﻿using BuisnesLogic;
 using Common;
+using InternetShop.DependencyResolution;
 using StructureMap;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,7 @@ namespace InternetShop.Controllers
     public class ProductsController : Controller
     {
         private static readonly Logger.Logger log = new Logger.Logger(typeof(MainController));
-        private static IContainer _container = DependencyResolution.IoC.Initialize();
-        private Accessing _accessing = (Accessing)_container.GetInstance<IAccessing>();
+        private Accessing _accessing = (Accessing) IoC.Initialize().GetInstance<IAccessing>();
         // GET: Products
         [HttpGet]
         public ActionResult Main(string id)

@@ -11,7 +11,12 @@ namespace BuisnesLogic
     {
         Category[] GetAllCategories();
         Product[] GetProducts(int CategoryId);
+        Busket GetBusket(int userId);
+        User GetUser(int userId);
+        int LogIn(string eMail, string password);
         bool AddCategory(string name);
         bool AddProducts(Product product);
+        bool AddUser(User user);
+        bool AddInBusket(int userId, int productId, int productCount);
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public class Basket: IBasket
+    public class Busket: IModel
     {
-        public int BasketId { get; set; }
-        public List<int> Products { get; set; }//List of ProductsId
+        public List<int> BasketId { get; set; }
+        public List<Product> Products { get; set; }
+        public List<int> Counts { get; set; }
     }
 }

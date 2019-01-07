@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public class Product: IProduct
+    public class Product: IModel
     {
         public int ProductId { get; set; }
         public int CategoryId { get; set; }

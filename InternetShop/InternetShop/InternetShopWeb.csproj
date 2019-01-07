@@ -142,6 +142,8 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\AuthorizeController.cs" />
+    <Compile Include="Controllers\BusketController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -168,6 +170,9 @@
     <Content Include="Views\Products\Main.cshtml" />
     <Content Include="Views\Products\Products.cshtml" />
     <Content Include="Views\Products\CreateProducts.cshtml" />
+    <Content Include="Views\Busket\Index.cshtml" />
+    <Content Include="Views\Authorize\Index.cshtml" />
+    <Content Include="Views\Authorize\LogIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

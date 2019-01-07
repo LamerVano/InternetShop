@@ -11,7 +11,9 @@ namespace BuisnesLogic
 {
     public class Accessing: IAccessing
     {
+        
         public IDataAcces DataAcces { get; set; }
+
         public Accessing(IDataAcces dataAcces)
         {
             DataAcces = dataAcces;
@@ -35,6 +37,31 @@ namespace BuisnesLogic
         public bool AddProducts(Product product)
         {
             return DataAcces.AddProduct(product);
+        }
+
+        public Busket GetBusket(int userId)
+        {
+            return DataAcces.GetBusket(userId);
+        }
+
+        public User GetUser(int userId)
+        {
+            return DataAcces.GetUser(userId);
+        }
+
+        public bool AddUser(User user)
+        {
+            return DataAcces.AddUser(user);
+        }
+
+        public bool AddInBusket(int userId, int productId, int productCount)
+        {
+            return DataAcces.AddInBusket(userId, productId, productCount);
+        }
+
+        public int LogIn(string eMail, string password)
+        {
+            return DataAcces.LogIn(eMail, password);
         }
     }
 }
