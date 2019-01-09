@@ -14,41 +14,101 @@ namespace InternetShop.Controllers
 {
     public class MainController : Controller
     {
-        private Logger.Logger log = new Logger.Logger(typeof(MainController));
-        private Accessing _accessing = (Accessing) IoC.Initialize().GetInstance<IAccessing>();
+        string _role = Constants.COOKIE_ROLE;
+        string _moder = Constants.MODER;
+        string _admin = Constants.ADMIN;
+        
+        IAccessing _accessing = IoC.Initialize().GetInstance<IAccessing>();
         // GET: Main
         public ActionResult Main()
         {
-            log.Debug("Get-req return View.Main");
             return View(_accessing.GetAllCategories());
         }
 
         [HttpGet]
         public ActionResult CreateCategory()
         {
-            log.Debug("Get-req return View.CreateCategory");
-            return View();
+            if (Request.Cookies[_role] != null)
+            {
+                if (Request.Cookies[_role].Value == _admin || Request.Cookies[_role].Value == _moder)
+                {
+
+                    return View();
+                }
+            }
+            return Redirect(Request.UrlReferrer.AbsolutePath);
         }
 
         [HttpPost]
         public ActionResult CreateCategory(Category category)
         {
-            log.Debug("Post-req");
             if (ModelState.IsValid)
             {
-                log.Debug("Model Valid");
                 if (_accessing.AddCategory(category.Name))
                 {
-                    log.Debug("Category Add");
                     return View();
                 }
-                log.Debug("Category not Add");
             }
-            log.Debug("Model not Valid");
 
             ViewBag.Message = "Не добавлено";
-            log.Debug("return View.CreateCategory");
             return View();
+        }
+
+        public ActionResult Edit(string id)
+        {
+            if(Request.Cookies[_role] != null)
+            {
+                if(Request.Cookies[_role].Value == _admin || Request.Cookies[_role].Value == _moder)
+                {
+                    return View(_accessing.GetCategory(Int32.Parse(id)));
+                }
+            }
+            return Redirect(Request.UrlReferrer.AbsolutePath);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Category category, string Name)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_accessing.EditCategory(category))
+                {
+                    ViewBag.Message = "Succes Saving";
+                    return View(category);
+                }
+                else
+                {
+                    ViewBag.Message = "Unsucces Saving";
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Data not Valid";
+            }
+            return View(category);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            if (Request.Cookies[_role] != null)
+            {
+                if (Request.Cookies[_role].Value == _admin || Request.Cookies[_role].Value == _moder)
+                {
+                    return View(_accessing.GetCategory(Int32.Parse(id)));
+                }
+            }
+            return Redirect(Request.UrlReferrer.AbsolutePath);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Category category, string Name)
+        {
+            if (_accessing.DelCategory(category))
+            {
+                return RedirectToAction("Main");
+            }
+            ViewBag.Message = "Product wasn't delete";
+            return View(category);
         }
     }
 }

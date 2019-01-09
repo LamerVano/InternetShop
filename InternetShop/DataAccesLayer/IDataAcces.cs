@@ -10,13 +10,25 @@ namespace DataAccesLayer
     public interface IDataAcces
     {
         Category[] GetCategories();
+        Category GetCategory(int categoryId);
         Product[] GetProducts(int CategoryId);
-        Busket GetBusket(int userId);
+        List<Order> GetUserOrders(int userId);
+        Order GetOrder(int orderId);
+        Product GetProduct(int productId);
+        List<User> GetAllUsers();
         User GetUser(int userId);
         int LogIn(string eMail, string password);
         bool AddCategory(string name);
         bool AddProduct(Product product);
-        bool AddInBusket(int userId, int productId, int productCount);
+        bool AddOrder(int userId, int productId, int productCount);
         bool AddUser(User user);
+        bool EditCategory(Category Category);
+        bool EditProducts(Product product);
+        bool EditUser(User user);
+        bool EditOrder(Order order);
+        bool DelCategory(Category Category);
+        bool DelProducts(Product product);
+        bool DelUser(User user);
+        bool DelOrder(Order order);
     }
 }

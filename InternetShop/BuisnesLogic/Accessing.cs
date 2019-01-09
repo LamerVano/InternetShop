@@ -29,6 +29,11 @@ namespace BuisnesLogic
             return DataAcces.GetProducts(CategoryId);
         }
 
+        public Product GetProduct(int ProductId)
+        {
+            return DataAcces.GetProduct(ProductId);
+        }
+
         public bool AddCategory(string name)
         {
             return DataAcces.AddCategory(name);
@@ -39,9 +44,9 @@ namespace BuisnesLogic
             return DataAcces.AddProduct(product);
         }
 
-        public Busket GetBusket(int userId)
+        public List<Order> GetUserOrders(int userId)
         {
-            return DataAcces.GetBusket(userId);
+            return DataAcces.GetUserOrders(userId);
         }
 
         public User GetUser(int userId)
@@ -54,14 +59,69 @@ namespace BuisnesLogic
             return DataAcces.AddUser(user);
         }
 
-        public bool AddInBusket(int userId, int productId, int productCount)
+        public bool AddOrder(int userId, int productId, int productCount)
         {
-            return DataAcces.AddInBusket(userId, productId, productCount);
+            return DataAcces.AddOrder(userId, productId, productCount);
         }
 
         public int LogIn(string eMail, string password)
         {
             return DataAcces.LogIn(eMail, password);
+        }
+
+        public bool EditCategory(Category category)
+        {
+            return DataAcces.EditCategory(category);
+        }
+
+        public bool EditProducts(Product product)
+        {
+            return DataAcces.EditProducts(product);
+        }
+
+        public bool EditUser(User user)
+        {
+            return DataAcces.EditUser(user);
+        }
+
+        public bool EditOrder(Order order)
+        {
+            return DataAcces.EditOrder(order);
+        }
+
+        public bool DelCategory(Category category)
+        {
+            return DataAcces.DelCategory(category);
+        }
+
+        public bool DelProducts(Product product)
+        {
+            return DataAcces.DelProducts(product);
+        }
+
+        public bool DelUser(User user)
+        {
+            return DataAcces.DelUser(user);
+        }
+
+        public bool DelOrder(Order order)
+        {
+            return DataAcces.DelOrder(order);
+        }
+
+        public Category GetCategory(int categoryId)
+        {
+            return DataAcces.GetCategory(categoryId);
+        }
+
+        public Order GetOrder(int orderId)
+        {
+            return DataAcces.GetOrder(orderId);
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return DataAcces.GetAllUsers();
         }
     }
 }

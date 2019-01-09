@@ -1,8 +1,11 @@
 ﻿@model Common.Product
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
+    string _role = Common.Constants.COOKIE_ROLE;
+    string _moder = Common.Constants.MODER;
+    string _admin = Common.Constants.ADMIN;
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -43,9 +46,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-                @ViewBag.Message
+                 @if(Request.Cookies[_role] != null)
+            {
+                if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                {
+                    
+                   <input type="submit" value="Create" class="btn btn-default" />  
+                }
+            }
             </div>
+                @ViewBag.Message
         </div>
     </div>
 }

@@ -142,8 +142,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\AdministrateController.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
-    <Compile Include="Controllers\BusketController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -170,9 +171,22 @@
     <Content Include="Views\Products\Main.cshtml" />
     <Content Include="Views\Products\Products.cshtml" />
     <Content Include="Views\Products\CreateProducts.cshtml" />
-    <Content Include="Views\Busket\Index.cshtml" />
-    <Content Include="Views\Authorize\Index.cshtml" />
     <Content Include="Views\Authorize\LogIn.cshtml" />
+    <Content Include="Views\Authorize\Register.cshtml" />
+    <Content Include="Views\Products\EditProduct.cshtml" />
+    <Content Include="Views\Products\DelProduct.cshtml" />
+    <Content Include="Views\Products\AboutProduct.cshtml" />
+    <Content Include="Views\Main\Edit.cshtml" />
+    <Content Include="Views\Main\Delete.cshtml" />
+    <Content Include="Views\Order\Order.cshtml" />
+    <Content Include="Views\Order\AboutProduct.cshtml" />
+    <Content Include="Views\Administrate\AllUsers.cshtml" />
+    <Content Include="Views\Administrate\AddUser.cshtml" />
+    <Content Include="Views\Administrate\EditUser.cshtml" />
+    <Content Include="Views\Administrate\DelUser.cshtml" />
+    <Content Include="Views\Administrate\AboutUsers.cshtml" />
+    <Content Include="Views\Administrate\UserOrders.cshtml" />
+    <Content Include="Views\Order\EditOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

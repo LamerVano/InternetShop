@@ -10,13 +10,25 @@ namespace BuisnesLogic
     public interface IAccessing
     {
         Category[] GetAllCategories();
-        Product[] GetProducts(int CategoryId);
-        Busket GetBusket(int userId);
+        Category GetCategory(int categoryId);
+        Product[] GetProducts(int categoryId);
+        Product GetProduct(int productId);
+        List<Order> GetUserOrders(int userId);
+        Order GetOrder(int orderId);
+        List<User> GetAllUsers();
         User GetUser(int userId);
         int LogIn(string eMail, string password);
         bool AddCategory(string name);
         bool AddProducts(Product product);
         bool AddUser(User user);
-        bool AddInBusket(int userId, int productId, int productCount);
+        bool AddOrder(int userId, int productId, int productCount);
+        bool EditCategory(Category Category);
+        bool EditProducts(Product product);
+        bool EditUser(User user);
+        bool EditOrder(Order order);
+        bool DelCategory(Category newCategory);
+        bool DelProducts(Product product);
+        bool DelUser(User user);
+        bool DelOrder(Order order);
     }
 }

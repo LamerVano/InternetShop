@@ -64,7 +64,7 @@ namespace DataAccesLayer
                 {
                     while (reader.Read())
                     {
-                        Products.Add(new Product() { ProductId = reader.GetInt32(0), CategoryId = reader.GetInt32(1), Name = reader.GetString(2), Cost = reader.GetDecimal(3), About = reader.GetString(4) });
+                        Products.Add(new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] });
                     }
                 }
 
@@ -81,46 +81,54 @@ namespace DataAccesLayer
             }
         }
 
-        public Busket GetBusket(int UserId)
+        public List<Order> GetUserOrders(int userId)
         {
-            Busket busket = new Busket();
+            List<Order> orders = new List<Order>();
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("Busket", connection);
+                SqlCommand command = new SqlCommand("Order", connection);
+
+
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
                 SqlParameter userParam = new SqlParameter
                 {
                     ParameterName = "@userId",
-                    Value = UserId
+                    Value = userId
                 };
 
                 command.Parameters.Add(userParam);
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     while(reader.Read())
                     {
-                        busket.BasketId.Add((int)reader["Id"]);
-                        busket.Products.Add(new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (int)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] });
-                        busket.Counts.Add((int)reader["ProductCount"]);
+                        Order order = new Order();
+
+                        order.OrderId = (int)reader["Id"];
+                        order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                       
+                        order.Count = (int)reader["ProductCount"];
+                        order.Status = (string)reader["Status"];
+
+                        orders.Add(order);
                     }
                 }
             }
 
-            return busket;
+            return orders;
         }
 
         public User GetUser(int userId)
         {
             User user = new User();
 
-            string sqlExpression = String.Format("SELECT Id, FName, LName, EMail, Phone, Password FROM Users WHERE Id = userId");
+            string sqlExpression = String.Format("SELECT Id, FName, LName, EMail, Phone, Role FROM Users WHERE Id = '{0}'", userId);
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -132,6 +140,7 @@ namespace DataAccesLayer
                 {
                     if (reader.HasRows)
                     {
+                        reader.Read();
                         user.UserId = (int)reader["Id"];
                         user.FirstName = (string)reader["FName"];
                         user.LastName = (string)reader["LName"];
@@ -147,7 +156,7 @@ namespace DataAccesLayer
 
         public int LogIn(string eMail, string password)
         {
-            string sqlExpression = String.Format("SELECT * FROM Users WHERE EMail = {0} AND Password = {1}", eMail, password);
+            string sqlExpression = String.Format("SELECT * FROM Users WHERE EMail = '{0}' AND Password = '{1}'", eMail, password);
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -159,7 +168,10 @@ namespace DataAccesLayer
                 {
                     if(reader.HasRows)
                     {
-                        return (int)reader["Id"];
+                        if (reader.Read())
+                            return (int)reader["Id"];
+                        else
+                            return -1;
                     }
                     else
                     {
@@ -183,21 +195,27 @@ namespace DataAccesLayer
             return OneCommand(sqlExpression);
         }
 
-        public bool AddInBusket(int userId, int productId, int productCount)
+        public bool AddOrder(int userId, int productId, int productCount)
         {
-            string sqlExpression = String.Format("INSERT INTO Buskets (UserId, ProductId, Count) VALUES ('{0}', '{1}','{2}')", userId, productId, productCount);
+            string sqlExpression = String.Format("INSERT INTO Orders (UserId, ProductId, Count) VALUES ('{0}', '{1}','{2}')", userId, productId, productCount);
 
             return OneCommand(sqlExpression);
         }
 
         public bool AddUser(User user)
         {
-            string sqlExpression = String.Format("INSERT INTO Users (Id, FName, LName, EMail, Password, Phone, Role) VALUES ('{0}', '{1}','{2}', '{3}','{4}','{5}','{6}')", user.UserId, user.FirstName, user.LastName, user.EMail, user.Password, user.Phone, user.Role);
-
+            string sqlExpression;
+            if (user.Role != "" & user.Role != null)
+            {
+                sqlExpression = String.Format("INSERT INTO Users (FName, LName, EMail, Password, Phone, Role) VALUES ('{0}', '{1}','{2}', '{3}','{4}','{5}')", user.FirstName, user.LastName, user.EMail, user.Password, user.Phone, user.Role);
+            }
+            else
+            {
+                sqlExpression = String.Format("INSERT INTO Users (FName, LName, EMail, Password, Phone) VALUES ('{0}', '{1}','{2}', '{3}','{4}')", user.FirstName, user.LastName, user.EMail, user.Password, user.Phone);
+            }
             return OneCommand(sqlExpression);
         }
-
-
+        
         private bool OneCommand(string sqlExpression)
         {
             try
@@ -217,6 +235,178 @@ namespace DataAccesLayer
             }
 
             return true;
+        }
+
+        public Product GetProduct(int productId)
+        {
+            Product product = new Product();
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM Products WHERE Id={0}", productId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };                    
+                }
+
+                reader.Close();
+            }
+            return product;
+        }
+
+        public bool EditCategory(Category category)
+        {
+            string sqlExpression = String.Format("UPDATE Category SET Name = '{1}' FROM Category WHERE Id={0}", category.CategoryId, category.Name);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool EditProducts(Product product)
+        {
+            string sqlExpression = String.Format("UPDATE Products SET Name = '{1}', Cost = '{2}', About = '{3}' FROM Products WHERE Id={0}", product.ProductId, product.Name,  product.Cost, product.About);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool EditUser(User user)
+        {
+            string sqlExpression = String.Format("UPDATE Users SET FirstName = '{1}', LastName = '{2}', EMail = '{3}', Password = '{4}', Phone = '{5}', Role = '{6}' FROM Users WHERE Id={0}", user.UserId, user.FirstName, user.LastName, user.EMail, user.Password, user.Phone, user.Role);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool EditOrder(Order order)
+        {
+            string sqlExpression = String.Format("UPDATE Orders SET ProductId = '{1}', Count = '{2}', Status = '{3}' FROM Busket WHERE Id={0}", order.OrderId, order.Product, order.Count, order.Status);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool DelCategory(Category category)
+        {
+            string sqlExpression = String.Format("DELETE Category WHERE Id={0}", category.CategoryId);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool DelProducts(Product product)
+        {
+            string sqlExpression = String.Format("DELETE Products WHERE Id={0}", product.ProductId);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool DelUser(User user)
+        {
+            string sqlExpression = String.Format("DELETE Users WHERE Id={0}", user.UserId);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public bool DelOrder(Order order)
+        {
+            string sqlExpression = String.Format("DELETE Orders WHERE Id={0}", order.OrderId);
+
+            return OneCommand(sqlExpression);
+        }
+
+        public Category GetCategory(int categoryId)
+        {
+            Category category = new Category();
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM Category WHERE Id = '{0}'", categoryId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    category.CategoryId =(int) reader["Id"];
+                    category.Name = (string) reader["Name"];                    
+                }
+
+                reader.Close();
+            }
+            return category;
+        }
+
+        public Order GetOrder(int orderId)
+        {
+            Order order = new Order();
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM Order WHERE Id = '{0}'", orderId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    order.OrderId = (int)reader["Id"];
+                    order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (int)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                    order.Count = (int)reader["ProductCount"];
+                    order.Status = (string)reader["State"];
+                }
+
+                reader.Close();
+            }
+            return order;
+        }
+
+        public List<User> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+
+            string sqlExpression = String.Format("SELECT Id, FName, LName, EMail, Phone, Role FROM Users");
+
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read()) {
+                            User user = new User();
+
+                            user.UserId = (int)reader["Id"];
+                            user.FirstName = (string)reader["FName"];
+                            user.LastName = (string)reader["LName"];
+                            user.EMail = (string)reader["EMail"];
+                            user.Phone = (string)reader["Phone"];
+                            user.Role = (string)reader["Role"];
+
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+
+            return users;
         }
     }
 }

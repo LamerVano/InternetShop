@@ -1,7 +1,23 @@
 ﻿@model IEnumerable<Common.Product>
 
+
+@{
+    string _role = Common.Constants.COOKIE_ROLE;
+    string _moder = Common.Constants.MODER;
+    string _admin = Common.Constants.ADMIN;
+    string _user = Common.Constants.USER;
+}
+
+    @if (Request.Cookies[_role] != null)
+    {
+        if (Request.Cookies[_role].Value == _admin || Request.Cookies[_role].Value == _moder)
+        {
+            <p>@Html.ActionLink("Create New", "CreateProducts", new { id = ViewContext.RouteData.Values["id"] })</p>
+        }
+    }
+
 <p>
-    @Html.ActionLink("Create New", "CreateProducts", new { id = ViewContext.RouteData.Values["id"] })
+    @ViewBag.Message
 </p>
 <table class="table">
     <tr>
@@ -20,26 +36,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.About)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            
+            @using (Html.BeginForm())
+            {
+                if (Request.Cookies[_role] != null)
+                {
+                    if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                    {
+                        <td>
+                            @Html.ActionLink("About", "AboutProduct", new { id = item.ProductId }) |
+                            @Html.ActionLink("Edit", "EditProduct", new { id = item.ProductId }) |
+                            @Html.ActionLink("Delete", "DelProduct", new { id = item.ProductId }) 
+                            </td>
+                            <td>
+                            <input type="submit" name="id" value=@item.ProductId />
+                            Count
+                            <input type="number" name="count" value="1" />
+                        </td>
+                    }
+                    else if (Request.Cookies[_role].Value == _user)
+                    {
+                        <td>
+                            @Html.ActionLink("About", "AboutProduct", new { id = item.ProductId }) 
+                            </td>
+                            <td>
+                            
+                            <input type="submit" name="id" value=@item.ProductId />
+                            Count
+                            <input type="number" name="count" value="1" />
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>@Html.ActionLink("About", "AboutProduct", new { id = item.ProductId })</td>
+                }
+            }
+
+        </tr>
+    }
 
 </table>
