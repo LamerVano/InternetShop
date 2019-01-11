@@ -15,11 +15,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
         <dt>
@@ -41,19 +41,26 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(model => model.About)
+        @Html.HiddenFor(model => model.CategoryId)
+        @Html.HiddenFor(model => model.Cost)
+        @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.ProductId)
+
         <div class="form-actions no-color">
-            @if(Request.Cookies[_role] != null)
+            @if (Request.Cookies[_role] != null)
             {
-                if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
                 {
-                    
-                   <input type="submit" value="Delete" class="btn btn-default" />  
+
+                    <input type="submit" value="Delete" class="btn btn-default" />
                 }
             } |
-            @Html.ActionLink("Back to List", "Main", new { id = Model.CategoryId })
+            @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId })
         </div>
     }
     @ViewBag.Message

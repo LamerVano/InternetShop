@@ -30,7 +30,7 @@ namespace InternetShop.Controllers
         public ActionResult AddOrder(string id, int count)
         {
             Product product = _accessing.GetProduct(Int32.Parse(id));
-            if (Request.Cookies[_role] != null & Request.Cookies[_userId] != null)
+            if (Request.Cookies[_role] != null & Request.Cookies[_userId] != null & id != null & id != "")
             {
                 if(Request.Cookies[_role].Value != "" & Request.Cookies[_userId].Value != "")
                 {
@@ -49,16 +49,11 @@ namespace InternetShop.Controllers
         }
         public ActionResult AboutProduct(string id)
         {
-            return View(_accessing.GetProduct(Int32.Parse(id)));
-        }
-        public ActionResult EditOrder(string id)
-        {
-            return View(_accessing.GetOrder(Int32.Parse(id)));
-        }
-        [HttpPost]
-        public ActionResult EditOrer(Order busket, string Count)
-        {
-            return RedirectToAction("Busket");
+            if (id != null & id != "")
+            {
+                return View(_accessing.GetProduct(Int32.Parse(id)));
+            }
+            return RedirectToAction("Main", "Main");
         }
     }
 }

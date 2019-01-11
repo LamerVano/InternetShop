@@ -16,13 +16,12 @@
         }
     }
 
-<p>
-    @ViewBag.Message
-</p>
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            Category
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -40,7 +39,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
+                @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -60,8 +59,9 @@
                             @Html.ActionLink("Edit", "EditProduct", new { id = item.ProductId }) |
                             @Html.ActionLink("Delete", "DelProduct", new { id = item.ProductId }) 
                             </td>
-                            <td>
-                            <input type="submit" name="id" value=@item.ProductId />
+                        <td>
+                            <input type="submit" value="Добавить в Корзину" />
+                            <input type="hidden" name="id" value=@item.ProductId />
                             Count
                             <input type="number" name="count" value="1" />
                         </td>
@@ -72,8 +72,8 @@
                             @Html.ActionLink("About", "AboutProduct", new { id = item.ProductId }) 
                             </td>
                             <td>
-                            
-                            <input type="submit" name="id" value=@item.ProductId />
+                                <input type="submit" value="Добавить в Корзину" />
+                            <input type="hidden" name="id" value=@item.ProductId  />
                             Count
                             <input type="number" name="count" value="1" />
                         </td>

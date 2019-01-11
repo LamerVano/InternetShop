@@ -14,5 +14,8 @@ namespace Common
         public const string MODER = "Moderator";
         public const string ADMIN = "Admin";
         public const string USER = "User";
+        public const string APROVE = "Aprooved";
+        public const string DELIVER = "Delivered";
+        public const string PAID = "Paid";
     }
 }

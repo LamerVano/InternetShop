@@ -13,15 +13,18 @@ namespace InternetShop.Controllers
     {
         string _role = Constants.COOKIE_ROLE;
         string _admin = Constants.ADMIN;
+        string _aprove = Constants.APROVE;
+        string _deliver = Constants.DELIVER;
+        string _paid = Constants.PAID;
 
         IAccessing _accessing = IoC.Initialize().GetInstance<IAccessing>();
 
         // GET: Administrate
         public ActionResult AllUsers()
         {
-            if(Request.Cookies[_role] != null)
+            if (Request.Cookies[_role] != null)
             {
-                if(Request.Cookies[_role].Value == _admin)
+                if (Request.Cookies[_role].Value == _admin)
                 {
                     return View(_accessing.GetAllUsers());
                 }
@@ -43,9 +46,9 @@ namespace InternetShop.Controllers
         [HttpPost]
         public ActionResult AddUser(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(_accessing.AddUser(user))
+                if (_accessing.AddUser(user))
                 {
                     return RedirectToAction("AllUsers");
                 }
@@ -63,7 +66,7 @@ namespace InternetShop.Controllers
 
         public ActionResult EditUser(string id)
         {
-            if (Request.Cookies[_role] != null)
+            if (Request.Cookies[_role] != null & id != null & id != "")
             {
                 if (Request.Cookies[_role].Value == _admin)
                 {
@@ -96,7 +99,7 @@ namespace InternetShop.Controllers
 
         public ActionResult DelUser(string id)
         {
-            if (Request.Cookies[_role] != null)
+            if (Request.Cookies[_role] != null & id != null & id != "")
             {
                 if (Request.Cookies[_role].Value == _admin)
                 {
@@ -119,14 +122,21 @@ namespace InternetShop.Controllers
             return View(user);
         }
 
-        public ActionResult AboutUsers(string id)
+        public ActionResult AboutUser(string id)
         {
-            return View(_accessing.GetUser(Int32.Parse(id)));
+            if (id != null & id != "")
+            {
+                return View(_accessing.GetUser(Int32.Parse(id)));
+            }
+            else
+            {
+                return RedirectToAction("Main", "Main");
+            }
         }
 
         public ActionResult UserOrders(string id)
         {
-            if (Request.Cookies[_role] != null)
+            if (Request.Cookies[_role] != null & id != null & id != "")
             {
                 if (Request.Cookies[_role].Value == _admin)
                 {
@@ -134,6 +144,64 @@ namespace InternetShop.Controllers
                 }
             }
             return RedirectToAction("Main", "Main");
+        }
+
+        public ActionResult EditOrder(string id)
+        {
+            if (Request.Cookies[_role] != null & id != null & id != "")
+            {
+                if (Request.Cookies[_role].Value == _admin)
+                {
+                    return View(_accessing.GetOrder(Int32.Parse(id)));
+                }
+            }
+            return RedirectToAction("Main", "Main");
+
+        }
+        [HttpPost]
+        public ActionResult EditOrder(Order order)
+        {
+            if (OrderIsValid(order))
+            {
+                if (_accessing.EditOrder(order))
+                {
+                    return RedirectToAction("UserOrders", new { id = order.UserId });
+                }
+                else
+                {
+                    ViewBag.Message = "Chhanges not Save";
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Data not Valid";
+            }
+            return View(order);
+        }
+
+        private bool OrderIsValid(Order order)
+        {
+            if(order.Count < 1 || order.OrderId < 1 || order.ProductId < 1)
+            {
+                return false;
+            }
+            else if(order.Status != _aprove & order.Status != _deliver & order.Status != _paid)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public ActionResult AboutProduct(string id)
+        {
+            if (id != null & id != "")
+            {
+                return View(_accessing.GetOrder(Int32.Parse(id)));
+            }
+            else
+            {
+                return RedirectToAction("Main", "Main");
+            }
         }
     }
     

@@ -16,7 +16,7 @@ namespace DataAccesLayer
             List<Category> Categories = new List<Category>();
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-                connection.Open();
+                TryOpenConnection(connection);
 
                 SqlCommand command = new SqlCommand();
 
@@ -46,16 +46,42 @@ namespace DataAccesLayer
             }
         }
 
+        public Category GetCategory(int categoryId)
+        {
+            Category category = new Category();
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                TryOpenConnection(connection);
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM Category WHERE Id = '{0}'", categoryId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    category.CategoryId = (int)reader["Id"];
+                    category.Name = (string)reader["Name"];
+                }
+
+                reader.Close();
+            }
+            return category;
+        }
+
         public Product[] GetProducts(int CategoryId)
         {
             List<Product> Products = new List<Product>();
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-                connection.Open();
+                TryOpenConnection(connection);
 
                 SqlCommand command = new SqlCommand();
 
-                command.CommandText = String.Format("SELECT * FROM Products WHERE CategoryId={0}", CategoryId);
+                command.CommandText = String.Format("SELECT * FROM ProductsView WHERE CategoryId={0}", CategoryId);
                 command.Connection = connection;
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -64,7 +90,7 @@ namespace DataAccesLayer
                 {
                     while (reader.Read())
                     {
-                        Products.Add(new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] });
+                        Products.Add(new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] });
                     }
                 }
 
@@ -81,26 +107,44 @@ namespace DataAccesLayer
             }
         }
 
+        public Product GetProduct(int productId)
+        {
+            Product product = new Product();
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                TryOpenConnection(connection);
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM ProductsView WHERE Id={0}", productId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };
+                }
+
+                reader.Close();
+            }
+            return product;
+        }
+
         public List<Order> GetUserOrders(int userId)
         {
             List<Order> orders = new List<Order>();
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-                connection.Open();
+                TryOpenConnection(connection);
 
-                SqlCommand command = new SqlCommand("Order", connection);
+                SqlCommand command = new SqlCommand();
 
-
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                SqlParameter userParam = new SqlParameter
-                {
-                    ParameterName = "@userId",
-                    Value = userId
-                };
-
-                command.Parameters.Add(userParam);
+                command.CommandText = String.Format("SELECT * FROM OrdersView WHERE UserId = '{0}'", userId);
+                command.Connection = connection;
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -111,8 +155,9 @@ namespace DataAccesLayer
                         Order order = new Order();
 
                         order.OrderId = (int)reader["Id"];
-                        order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
-                       
+                        order.UserId = (int)reader["UserId"];
+                        order.ProductId = (int)reader["ProductId"];
+                        order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };           
                         order.Count = (int)reader["ProductCount"];
                         order.Status = (string)reader["Status"];
 
@@ -124,6 +169,73 @@ namespace DataAccesLayer
             return orders;
         }
 
+        public Order GetOrder(int orderId)
+        {
+            Order order = new Order();
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                TryOpenConnection(connection);
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM OrdersView WHERE Id = '{0}'", orderId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    order.OrderId = (int)reader["Id"];
+                    order.UserId = (int)reader["UserId"];
+                    order.ProductId = (int)reader["ProductId"];
+                    order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                    order.Count = (int)reader["ProductCount"];
+                    order.Status = (string)reader["Status"];
+                }
+
+                reader.Close();
+            }
+            return order;
+        }
+
+        public List<User> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+
+            string sqlExpression = String.Format("SELECT Id, FName, LName, EMail, Phone, Role FROM Users");
+
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                TryOpenConnection(connection);
+
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            User user = new User();
+
+                            user.UserId = (int)reader["Id"];
+                            user.FirstName = (string)reader["FName"];
+                            user.LastName = (string)reader["LName"];
+                            user.EMail = (string)reader["EMail"];
+                            user.Phone = (string)reader["Phone"];
+                            user.Role = (string)reader["Role"];
+
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+
+            return users;
+        }
+
         public User GetUser(int userId)
         {
             User user = new User();
@@ -132,7 +244,7 @@ namespace DataAccesLayer
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-                connection.Open();
+                TryOpenConnection(connection);
 
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
 
@@ -160,7 +272,7 @@ namespace DataAccesLayer
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-                connection.Open();
+                TryOpenConnection(connection);
 
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
 
@@ -215,54 +327,7 @@ namespace DataAccesLayer
             }
             return OneCommand(sqlExpression);
         }
-        
-        private bool OneCommand(string sqlExpression)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
-                {
-                    connection.Open();
-
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public Product GetProduct(int productId)
-        {
-            Product product = new Product();
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand();
-
-                command.CommandText = String.Format("SELECT * FROM Products WHERE Id={0}", productId);
-                command.Connection = connection;
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    reader.Read();
-
-                    product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };                    
-                }
-
-                reader.Close();
-            }
-            return product;
-        }
-
+                
         public bool EditCategory(Category category)
         {
             string sqlExpression = String.Format("UPDATE Category SET Name = '{1}' FROM Category WHERE Id={0}", category.CategoryId, category.Name);
@@ -286,7 +351,7 @@ namespace DataAccesLayer
 
         public bool EditOrder(Order order)
         {
-            string sqlExpression = String.Format("UPDATE Orders SET ProductId = '{1}', Count = '{2}', Status = '{3}' FROM Busket WHERE Id={0}", order.OrderId, order.Product, order.Count, order.Status);
+            string sqlExpression = String.Format("UPDATE Orders SET ProductId = '{1}', Count = '{2}', Status = '{3}' FROM Orders WHERE Id={0}", order.OrderId, order.ProductId, order.Count, order.Status);
 
             return OneCommand(sqlExpression);
         }
@@ -319,94 +384,38 @@ namespace DataAccesLayer
             return OneCommand(sqlExpression);
         }
 
-        public Category GetCategory(int categoryId)
+        private void TryOpenConnection(SqlConnection connection)
         {
-            Category category = new Category();
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            try
             {
                 connection.Open();
-
-                SqlCommand command = new SqlCommand();
-
-                command.CommandText = String.Format("SELECT * FROM Category WHERE Id = '{0}'", categoryId);
-                command.Connection = connection;
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    category.CategoryId =(int) reader["Id"];
-                    category.Name = (string) reader["Name"];                    
-                }
-
-                reader.Close();
             }
-            return category;
+            catch (TimeoutException)
+            {
+                connection.Close();
+                TryOpenConnection(connection);
+            }
         }
 
-        public Order GetOrder(int orderId)
+        private bool OneCommand(string sqlExpression)
         {
-            Order order = new Order();
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            try
             {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand();
-
-                command.CommandText = String.Format("SELECT * FROM Order WHERE Id = '{0}'", orderId);
-                command.Connection = connection;
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
-                    reader.Read();
+                    TryOpenConnection(connection);
 
-                    order.OrderId = (int)reader["Id"];
-                    order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (int)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
-                    order.Count = (int)reader["ProductCount"];
-                    order.Status = (string)reader["State"];
-                }
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
 
-                reader.Close();
-            }
-            return order;
-        }
-
-        public List<User> GetAllUsers()
-        {
-            List<User> users = new List<User>();
-
-            string sqlExpression = String.Format("SELECT Id, FName, LName, EMail, Phone, Role FROM Users");
-
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read()) {
-                            User user = new User();
-
-                            user.UserId = (int)reader["Id"];
-                            user.FirstName = (string)reader["FName"];
-                            user.LastName = (string)reader["LName"];
-                            user.EMail = (string)reader["EMail"];
-                            user.Phone = (string)reader["Phone"];
-                            user.Role = (string)reader["Role"];
-
-                            users.Add(user);
-                        }
-                    }
+                    command.ExecuteNonQuery();
                 }
             }
+            catch
+            {
+                return false;
+            }
 
-            return users;
+            return true;
         }
     }
 }

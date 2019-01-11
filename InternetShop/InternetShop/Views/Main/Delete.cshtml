@@ -24,19 +24,23 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(model => model.CategoryId)
+        @Html.HiddenFor(model => model.Name)
+
         <div class="form-actions no-color">
-            @if(Request.Cookies[_role] != null)
+            @if (Request.Cookies[_role] != null)
             {
-                if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
                 {
-                    
-                   <input type="submit" value="Delete" class="btn btn-default" />  
+
+                    <input type="submit" value="Delete" class="btn btn-default" />
                 }
             }
-           | @Html.ActionLink("Back to Categories", "Main")
+            | @Html.ActionLink("Back to Categories", "Main")
         </div>
     }
     @ViewBag.Message

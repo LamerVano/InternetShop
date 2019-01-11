@@ -46,11 +46,11 @@
                 {
                     if (Request.Cookies[_role].Value == _admin)
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.OrderId })
+                        @Html.ActionLink("Edit Order", "EditOrder", new { id = item.OrderId })
 
                     }
                 } |
-                @Html.ActionLink("About", "AboutProduct", new { id = item.Product.ProductId })
+                @Html.ActionLink("About Product", "AboutProduct", new { id = item.OrderId })
             </td>
         </tr>
     }

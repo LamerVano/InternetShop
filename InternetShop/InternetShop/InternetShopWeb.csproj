@@ -184,9 +184,10 @@
     <Content Include="Views\Administrate\AddUser.cshtml" />
     <Content Include="Views\Administrate\EditUser.cshtml" />
     <Content Include="Views\Administrate\DelUser.cshtml" />
-    <Content Include="Views\Administrate\AboutUsers.cshtml" />
+    <Content Include="Views\Administrate\AboutUser.cshtml" />
     <Content Include="Views\Administrate\UserOrders.cshtml" />
-    <Content Include="Views\Order\EditOrder.cshtml" />
+    <Content Include="Views\Administrate\EditOrder.cshtml" />
+    <Content Include="Views\Administrate\AboutProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,7 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuisnesLogic\BuisnesLogic.csproj">

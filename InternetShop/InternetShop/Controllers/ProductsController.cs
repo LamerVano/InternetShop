@@ -24,7 +24,14 @@ namespace InternetShop.Controllers
         [HttpGet]
         public ActionResult Main(string id)
         {
-            return View(_accessing.GetProducts(Int32.Parse(id)));
+            if(id != null & id != "")
+            {
+                return View(_accessing.GetProducts(Int32.Parse(id)));
+            }
+            else
+            {
+                return RedirectToAction("Main", "Main");
+            }
         }
         [HttpPost]
         public ActionResult Main(string id, string count)
@@ -57,7 +64,12 @@ namespace InternetShop.Controllers
                     return View(new Product() { CategoryId = Int32.Parse(id) });
                 }
             }
-            return Redirect(Request.UrlReferrer.AbsolutePath);
+            if (Request.UrlReferrer != null || id != null & id != "")
+            {
+                return Redirect(Request.UrlReferrer.AbsolutePath);
+            }
+            else
+                return RedirectToAction("Main", "Main");
         }
 
         [HttpPost]
@@ -82,7 +94,12 @@ namespace InternetShop.Controllers
                 {
                     return View(_accessing.GetProduct(Int32.Parse(id)));
                 }
-            return Redirect(Request.UrlReferrer.AbsolutePath);
+            if (Request.UrlReferrer != null || id != null & id != "")
+            {
+                return Redirect(Request.UrlReferrer.AbsolutePath);
+            }
+            else
+                return RedirectToAction("Main", "Main");
         }
 
         [HttpPost]
@@ -110,7 +127,12 @@ namespace InternetShop.Controllers
 
                     return View(_accessing.GetProduct(Int32.Parse(id)));
                 }
-            return Redirect(Request.UrlReferrer.AbsolutePath);
+            if (Request.UrlReferrer != null || id != null & id != "")
+            {
+                return Redirect(Request.UrlReferrer.AbsolutePath);
+            }
+            else
+                return RedirectToAction("Main", "Main");
         }
 
         [HttpPost]
@@ -126,8 +148,14 @@ namespace InternetShop.Controllers
 
         public ActionResult AboutProduct(string id)
         {
-
-            return View(_accessing.GetProduct(Int32.Parse(id)));
+            if (id != null & id != "")
+            {
+                return View(_accessing.GetProduct(Int32.Parse(id)));
+            }
+            else
+            {
+                return RedirectToAction("Main", "Main");
+            }
         }
     }
 }

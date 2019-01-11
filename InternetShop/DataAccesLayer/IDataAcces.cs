@@ -12,9 +12,9 @@ namespace DataAccesLayer
         Category[] GetCategories();
         Category GetCategory(int categoryId);
         Product[] GetProducts(int CategoryId);
+        Product GetProduct(int productId);
         List<Order> GetUserOrders(int userId);
         Order GetOrder(int orderId);
-        Product GetProduct(int productId);
         List<User> GetAllUsers();
         User GetUser(int userId);
         int LogIn(string eMail, string password);

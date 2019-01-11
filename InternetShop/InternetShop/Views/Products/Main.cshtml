@@ -4,7 +4,11 @@
     ViewBag.Title = "Main";
 }
 
+
+
 @Html.Partial("Products", Model)
 
-<h2>Main</h2>
+
+
+<h2>@Html.DisplayFor(model => model.First().CategoryName)</h2>
 

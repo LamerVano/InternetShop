@@ -101,13 +101,15 @@ namespace InternetShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Category category, string Name)
+        public ActionResult Delete(Category category)
         {
             if (_accessing.DelCategory(category))
             {
                 return RedirectToAction("Main");
             }
+
             ViewBag.Message = "Product wasn't delete";
+
             return View(category);
         }
     }

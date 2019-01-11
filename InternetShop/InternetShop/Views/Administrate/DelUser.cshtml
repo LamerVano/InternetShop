@@ -34,7 +34,7 @@
         <dd>
             @Html.DisplayFor(model => model.EMail)
         </dd>
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
@@ -53,8 +53,16 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.EMail)
+        @Html.HiddenFor(model => model.FirstName)
+        @Html.HiddenFor(model => model.LastName)
+        @Html.HiddenFor(model => model.Phone)
+        @Html.HiddenFor(model => model.Role)
+        @Html.HiddenFor(model => model.UserId)
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

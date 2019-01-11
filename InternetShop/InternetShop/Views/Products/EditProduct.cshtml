@@ -14,12 +14,14 @@
 {
     @Html.AntiForgeryToken()
     
+    @Html.HiddenFor(model => model.CategoryId)
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProductId)
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,14 +48,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                 @if(Request.Cookies[_role] != null)
-            {
-                if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                @if (Request.Cookies[_role] != null)
                 {
-                    
-                   <input type="submit" value="Save" class="btn btn-default" />  
+                    if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                    {
+
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    }
                 }
-            }
             </div>
             @ViewBag.Message
         </div>
@@ -62,7 +64,7 @@
 
 <div>
     @Html.HiddenFor(model => model.CategoryId)
-    @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId})
+    @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId })
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

@@ -42,17 +42,13 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @if (Request.Cookies[_role] != null)
-                {
-                    if (Request.Cookies[_role].Value == _admin)
-                    {
-                        @Html.ActionLink("Edit", "EditBusket", new { id = item.OrderId })
-
-                    }
-                } |
                 @Html.ActionLink("About", "AboutProduct", new { id = item.Product.ProductId })
             </td>
         </tr>
     }
 
 </table>
+
+<p>
+    <a href="@Request.UrlReferrer.AbsolutePath">Back</a>
+</p>

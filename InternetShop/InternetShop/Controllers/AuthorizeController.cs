@@ -39,9 +39,7 @@ namespace InternetShop.Controllers
                     user = accessing.GetUser(userId);
 
                     HttpCookie cookieRole = new HttpCookie(_role, user.Role);
-                    cookieRole.Expires = DateTime.Now.AddMinutes(_time);
                     HttpCookie cookieUserId = new HttpCookie(_userId, user.UserId.ToString());
-                    cookieUserId.Expires = DateTime.Now.AddMinutes(_time);
 
                     Response.SetCookie(cookieRole);
                     Response.SetCookie(cookieUserId);
@@ -49,9 +47,7 @@ namespace InternetShop.Controllers
                 else if (user.EMail == "Admin@gmail.com" & user.Password == "gfhjkm")
                 {
                     HttpCookie cookieRole = new HttpCookie(_role, "Admin");
-                    cookieRole.Expires = DateTime.Now.AddMinutes(_time);
                     HttpCookie cookieUserId = new HttpCookie(_userId, "-1");
-                    cookieUserId.Expires = DateTime.Now.AddMinutes(_time);
 
                     Response.SetCookie(cookieRole);
                     Response.SetCookie(cookieUserId);
