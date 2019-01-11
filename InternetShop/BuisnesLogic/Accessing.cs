@@ -44,6 +44,11 @@ namespace BuisnesLogic
             return DataAcces.AddProduct(product);
         }
 
+        public List<Order> GetOrders()
+        {
+            return DataAcces.GetOrders();
+        }
+
         public List<Order> GetUserOrders(int userId)
         {
             return DataAcces.GetUserOrders(userId);

@@ -185,9 +185,9 @@
     <Content Include="Views\Administrate\EditUser.cshtml" />
     <Content Include="Views\Administrate\DelUser.cshtml" />
     <Content Include="Views\Administrate\AboutUser.cshtml" />
-    <Content Include="Views\Administrate\UserOrders.cshtml" />
     <Content Include="Views\Administrate\EditOrder.cshtml" />
     <Content Include="Views\Administrate\AboutProduct.cshtml" />
+    <Content Include="Views\Administrate\Orders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

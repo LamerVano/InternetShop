@@ -132,19 +132,7 @@ namespace InternetShop.Controllers
             {
                 return RedirectToAction("Main", "Main");
             }
-        }
-
-        public ActionResult UserOrders(string id)
-        {
-            if (Request.Cookies[_role] != null & id != null & id != "")
-            {
-                if (Request.Cookies[_role].Value == _admin)
-                {
-                    return View(_accessing.GetUserOrders(Int32.Parse(id)));
-                }
-            }
-            return RedirectToAction("Main", "Main");
-        }
+        }        
 
         public ActionResult EditOrder(string id)
         {
@@ -165,7 +153,7 @@ namespace InternetShop.Controllers
             {
                 if (_accessing.EditOrder(order))
                 {
-                    return RedirectToAction("UserOrders", new { id = order.UserId });
+                    ViewBag.Message = "Change succes";
                 }
                 else
                 {
@@ -176,6 +164,7 @@ namespace InternetShop.Controllers
             {
                 ViewBag.Message = "Data not Valid";
             }
+            order.Product = _accessing.GetProduct(order.ProductId);
             return View(order);
         }
 
@@ -202,6 +191,18 @@ namespace InternetShop.Controllers
             {
                 return RedirectToAction("Main", "Main");
             }
+        }
+       
+        public ActionResult Orders(string id)
+        {
+            if (Request.Cookies[_role] != null & id != null & id != "")
+            {
+                if (Request.Cookies[_role].Value == _admin)
+                {
+                    return View(_accessing.GetUserOrders(Int32.Parse(id)));
+                }
+            }
+            return View(_accessing.GetOrders());
         }
     }
     

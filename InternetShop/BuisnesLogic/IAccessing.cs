@@ -13,6 +13,7 @@ namespace BuisnesLogic
         Category GetCategory(int categoryId);
         Product[] GetProducts(int categoryId);
         Product GetProduct(int productId);
+        List<Order> GetOrders();
         List<Order> GetUserOrders(int userId);
         Order GetOrder(int orderId);
         List<User> GetAllUsers();

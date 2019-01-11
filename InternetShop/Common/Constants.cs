@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,7 @@ namespace Common
         public const string APROVE = "Aprooved";
         public const string DELIVER = "Delivered";
         public const string PAID = "Paid";
+        public static string IMAGES_PATH = Directory.GetCurrentDirectory();
+        public const string IMAGES_TYPE = ".bmp";
     }
 }

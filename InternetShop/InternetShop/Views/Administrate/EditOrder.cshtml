@@ -20,11 +20,20 @@
     <h4>Order</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     @Html.HiddenFor(model => model.OrderId)
     @Html.HiddenFor(model => model.ProductId)
     @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.UserName)
     @Html.HiddenFor(model => model.Count)
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    
     <div class="form-group">
         @Html.LabelFor(model => model.Product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -56,9 +65,30 @@
                 <div class="col-md-10">
 
                     <select class="form-control" name="Status" id="Status">
-                        <option value="@_aprove">Aprooved</option>
+                        @if (Model.Status == _aprove)
+                        {
+                        <option value="@_aprove" selected>Aprooved</option>
                         <option value="@_deliver">Deliver</option>
                         <option value="@_paid">Paid</option>
+                        }
+                        else if (Model.Status == _deliver)
+                        {
+                        <option value="@_aprove" >Aprooved</option>
+                        <option value="@_deliver" selected>Deliver</option>
+                        <option value="@_paid">Paid</option>
+                        }
+                        else if (Model.Status == _paid)
+                        {
+                        <option value="@_aprove" >Aprooved</option>
+                        <option value="@_deliver" selected>Deliver</option>
+                        <option value="@_paid" selected>Paid</option>
+                        }
+                        else
+                        {
+                        <option value="@_aprove" >Aprooved</option>
+                        <option value="@_deliver" >Deliver</option>
+                        <option value="@_paid">Paid</option>
+                        }
                     </select>
 
                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
@@ -78,7 +108,21 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Orders", "UserOrders", new { id =  Model.UserId })
+    @if (Request.UrlReferrer != null)
+    {
+        if (Request.Url.AbsolutePath != Request.UrlReferrer.AbsolutePath)
+        {
+            <a href="@Request.UrlReferrer.AbsolutePath">Back</a>
+        }
+        else
+        {
+            @Html.ActionLink("Back To Orders", "Orders");
+        }
+    }
+    else
+    {
+        @Html.ActionLink("Back To Orders", "Orders");
+    }
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

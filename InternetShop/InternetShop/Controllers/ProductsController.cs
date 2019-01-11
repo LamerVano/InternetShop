@@ -107,7 +107,7 @@ namespace InternetShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(_accessing.EditProducts(product))
+                if (_accessing.EditProducts(product))
                 {
                     return RedirectToAction("Main", new { id = product.CategoryId });
                 }
@@ -124,7 +124,6 @@ namespace InternetShop.Controllers
             if (Request.Cookies[_role] != null)
                 if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
                 {
-
                     return View(_accessing.GetProduct(Int32.Parse(id)));
                 }
             if (Request.UrlReferrer != null || id != null & id != "")

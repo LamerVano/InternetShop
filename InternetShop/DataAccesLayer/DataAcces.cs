@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,7 +91,9 @@ namespace DataAccesLayer
                 {
                     while (reader.Read())
                     {
-                        Products.Add(new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] });
+                        Product product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };
+                        
+                        Products.Add(product);
                     }
                 }
 
@@ -131,6 +134,43 @@ namespace DataAccesLayer
                 reader.Close();
             }
             return product;
+        }
+
+        public List<Order> GetOrders()
+        {
+            List<Order> orders = new List<Order>();
+
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                TryOpenConnection(connection);
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT * FROM OrdersView");
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Order order = new Order();
+
+                        order.OrderId = (int)reader["Id"];
+                        order.UserId = (int)reader["UserId"];
+                        order.UserName = (string)reader["UserName"];
+                        order.ProductId = (int)reader["ProductId"];
+                        order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                        order.Count = (int)reader["ProductCount"];
+                        order.Status = (string)reader["Status"];
+
+                        orders.Add(order);
+                    }
+                }
+            }
+
+            return orders;
         }
 
         public List<Order> GetUserOrders(int userId)
@@ -390,7 +430,7 @@ namespace DataAccesLayer
             {
                 connection.Open();
             }
-            catch (TimeoutException)
+            catch (SqlException)
             {
                 connection.Close();
                 TryOpenConnection(connection);

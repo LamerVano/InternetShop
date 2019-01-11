@@ -7,10 +7,13 @@
 
 }
 
-<h2>Busket</h2>
+<h2>Orders</h2>
 
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Product.Name)
         </th>
@@ -28,7 +31,11 @@
 
     @foreach (var item in Model)
     {
+        @Html.HiddenFor(modelItem => item.UserId)
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)
             </td>
@@ -56,3 +63,11 @@
     }
 
 </table>
+
+@if (Request.UrlReferrer != null)
+{
+    if (Request.Url.AbsolutePath != Request.UrlReferrer.AbsolutePath)
+    {
+        <a href="@Request.UrlReferrer.AbsolutePath">Back</a>
+    }
+}
