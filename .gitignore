@@ -9,3 +9,7 @@
 /InternetShop/Logger/bin
 /InternetShop/InternetShop/obj/Debug/DesignTimeResolveAssemblyReferences.cache
 /InternetShop/Common/obj/Debug
+/InternetShop/InternetShop/obj/Debug
+/InternetShop/DependencyInjection/obj/Debug
+/InternetShop/DataAccesLayer/obj/Debug
+/InternetShop/BuisnesLogic/obj/Debug

@@ -16,9 +16,7 @@ namespace InternetShop.Controllers
         string _moder = Constants.MODER;
         string _admin = Constants.ADMIN;
         string _userId = Constants.COOKIE_USER_ID;
-
-
-        static readonly Logger.Logger log = new Logger.Logger(typeof(MainController));
+        
         IAccessing _accessing = IoC.Initialize().GetInstance<IAccessing>();
         // GET: Products
         [HttpGet]

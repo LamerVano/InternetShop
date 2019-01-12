@@ -24,6 +24,10 @@ namespace InternetShop.Controllers
         {
             return View(_accessing.GetAllCategories());
         }
+        public ActionResult Categories()
+        {
+            return View(_accessing.GetAllCategories());
+        }
 
         [HttpGet]
         public ActionResult CreateCategory()
