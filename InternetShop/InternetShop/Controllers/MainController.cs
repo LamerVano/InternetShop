@@ -1,11 +1,6 @@
 ﻿using BuisnesLogic;
-using StructureMap;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using DataAccesLayer;
 using Common;
 using InternetShop.DependencyResolution;
 
