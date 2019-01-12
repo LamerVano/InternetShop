@@ -20,9 +20,13 @@ namespace InternetShop.Controllers
         {
             if(Request.Cookies[_userId] != null)
             {
-                int userId = Int32.Parse(Request.Cookies[_userId].Value);
-
-                return View(_accessing.GetUserOrders(userId));
+                string cookie = Request.Cookies[_userId].Value;
+                int userId;
+                if (Int32.TryParse(cookie, out userId))
+                {
+                    if (userId > 0)
+                        return View(_accessing.GetUser(userId));
+                }
             }
             return View();
         }

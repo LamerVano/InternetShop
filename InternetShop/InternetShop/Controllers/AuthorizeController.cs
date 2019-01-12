@@ -96,7 +96,10 @@ namespace InternetShop.Controllers
 
         public ActionResult LogOut()
         {
-            Response.Cookies[_role].Expires = DateTime.Now;
+            if (Response.Cookies[_role] != null)
+            {
+                Response.Cookies[_role].Expires = DateTime.Now;
+            }
             if (Response.Cookies[_userId] != null)
             {
                 Response.Cookies[_userId].Expires = DateTime.Now;

@@ -18,7 +18,7 @@ namespace Common
         [Required]
         [EmailAddress]
         public string EMail { get; set; }
-        [Required]
+        
         [StringLength(36, MinimumLength = 6)]
         public string Password { get; set; }
         

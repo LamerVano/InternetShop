@@ -8,5 +8,3 @@ D:\Vano1\Git\InternetShop\InternetShop\DataAccesLayer\obj\Debug\DataAccesLayer.d
 D:\Vano1\Git\InternetShop\InternetShop\DataAccesLayer\obj\Debug\DataAccesLayer.pdb
 D:\Vano1\Git\InternetShop\InternetShop\DataAccesLayer\bin\Debug\StructureMap.dll
 D:\Vano1\Git\InternetShop\InternetShop\DataAccesLayer\bin\Debug\StructureMap.xml
-D:\Vano1\Git\InternetShop\InternetShop\DataAccesLayer\bin\Debug\log4net.dll
-D:\Vano1\Git\InternetShop\InternetShop\DataAccesLayer\bin\Debug\log4net.xml
