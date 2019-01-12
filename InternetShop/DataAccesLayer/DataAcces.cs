@@ -2,16 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccesLayer
 {
     public class DataAcces: IDataAcces
     {
-        const string CONNECTION_STRING = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Database;Integrated Security=True";
+        int _numOfConnection;
+        const string CONNECTION_STRING = @"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename =|DataDirectory|Database.mdf;Integrated Security=True";
         public Category[] GetCategories()
         {
             List<Category> Categories = new List<Category>();
@@ -384,7 +381,7 @@ namespace DataAccesLayer
 
         public bool EditUser(User user)
         {
-            string sqlExpression = String.Format("UPDATE Users SET FirstName = '{1}', LastName = '{2}', EMail = '{3}', Password = '{4}', Phone = '{5}', Role = '{6}' FROM Users WHERE Id={0}", user.UserId, user.FirstName, user.LastName, user.EMail, user.Password, user.Phone, user.Role);
+            string sqlExpression = String.Format("UPDATE Users SET FName = '{1}', LName = '{2}', EMail = '{3}', Password = '{4}', Phone = '{5}', Role = '{6}' FROM Users WHERE Id={0}", user.UserId, user.FirstName, user.LastName, user.EMail, user.Password, user.Phone, user.Role);
 
             return OneCommand(sqlExpression);
         }
@@ -432,7 +429,12 @@ namespace DataAccesLayer
             }
             catch (SqlException)
             {
+                _numOfConnection++;
                 connection.Close();
+                if (_numOfConnection > 10)
+                {
+                    throw new Exception("Cann't connect to DataBase");
+                }
                 TryOpenConnection(connection);
             }
         }

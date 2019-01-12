@@ -21,35 +21,36 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav">
-                    @{ 
-                        string _role = Common.Constants.COOKIE_ROLE;
-                        string _moder = Common.Constants.MODER;
-                        string _admin = Common.Constants.ADMIN;
-                        string _user = Common.Constants.USER;
-                        }
+                    @{
+        string _role = Common.Constants.COOKIE_ROLE;
+        string _moder = Common.Constants.MODER;
+        string _admin = Common.Constants.ADMIN;
+        string _user = Common.Constants.USER;
+                    }
                     @if (Request.Cookies[_role] == null)
-                    {
-                        <li class="navbar-right">@Html.ActionLink("Log In", "LogIn", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li class="navbar-right">@Html.ActionLink("Register", "Register", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>                        
-                    }
-                    else if(Request.Cookies[_role].Value == _user || Request.Cookies[_role].Value == _moder)
-                    {
-                        <li class="navbar-right">@Html.ActionLink("To Orders", "Order", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li class="navbar-right">@Html.ActionLink("Log Out", "LogOut", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    }
-                    else if(Request.Cookies[_role].Value == _admin)
-                    {
-                        <li class="navbar-right">@Html.ActionLink("All Orders", "Orders", "Administrate", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li class="navbar-right">@Html.ActionLink("Log Out", "LogOut", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li class="navbar-right">@Html.ActionLink("All Users", "AllUsers", "Administrate", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    }
-                    else
-                    {
-                        Response.Cookies.Clear();
+    {
+                <li class="navbar-right">@Html.ActionLink("Log In", "LogIn", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="navbar-right">@Html.ActionLink("Register", "Register", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
+}
+else if (Request.Cookies[_role].Value == _user || Request.Cookies[_role].Value == _moder)
+{
+                <li class="navbar-right">@Html.ActionLink("To Orders", "Order", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="navbar-right">@Html.ActionLink("Log Out", "LogOut", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="navbar-right">@Html.ActionLink("Profile", "User", "Profile", new { area = "" }, new { @class = "navbar-brand" })</li>
+}
+else if (Request.Cookies[_role].Value == _admin)
+{
+                <li class="navbar-right">@Html.ActionLink("All Orders", "Orders", "Administrate", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="navbar-right">@Html.ActionLink("Log Out", "LogOut", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="navbar-right">@Html.ActionLink("All Users", "AllUsers", "Administrate", new { area = "" }, new { @class = "navbar-brand" })</li>
+}
+else
+{
+Response.Cookies.Clear();
 
-                        <li class="navbar-right">@Html.ActionLink("Log In", "LogIn", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li class="navbar-right">@Html.ActionLink("Registr", "Register", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li> 
-                    }
+                <li class="navbar-right">@Html.ActionLink("Log In", "LogIn", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li class="navbar-right">@Html.ActionLink("Registr", "Register", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
+}
 
 
 

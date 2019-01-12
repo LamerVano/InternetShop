@@ -1,11 +1,7 @@
 ﻿using BuisnesLogic;
 using Common;
 using InternetShop.DependencyResolution;
-using StructureMap;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InternetShop.Controllers

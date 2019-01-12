@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Common
 {
-    
+
     public class User: IModel
     {
         public int UserId { get; set; }
@@ -18,7 +13,7 @@ namespace Common
         [Required]
         [EmailAddress]
         public string EMail { get; set; }
-        [Required]
+        
         [StringLength(36, MinimumLength = 6)]
         public string Password { get; set; }
         
