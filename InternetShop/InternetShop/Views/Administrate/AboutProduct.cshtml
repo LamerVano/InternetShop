@@ -1,0 +1,49 @@
+﻿@model Common.Order
+
+@{
+    ViewBag.Title = "AboutProduct";
+}
+
+<h2>AboutProduct</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.About)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.About)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to Orders", "UserOrders", new { id = Model.UserId })
+</p>

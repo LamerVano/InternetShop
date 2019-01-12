@@ -1,0 +1,9 @@
+D:\Vano1\Git\InternetShop\InternetShop\Database1\bin\Debug\Database1.dacpac
+D:\Vano1\Git\InternetShop\InternetShop\Database1\bin\Debug\Database1.dll
+D:\Vano1\Git\InternetShop\InternetShop\Database1\bin\Debug\Database1.pdb
+D:\Vano1\Git\InternetShop\InternetShop\Database1\obj\Debug\Model.xml
+D:\Vano1\Git\InternetShop\InternetShop\Database1\obj\Debug\refactor.xml
+D:\Vano1\Git\InternetShop\InternetShop\Database1\obj\Debug\postdeploy.sql
+D:\Vano1\Git\InternetShop\InternetShop\Database1\obj\Debug\predeploy.sql
+D:\Vano1\Git\InternetShop\InternetShop\Database1\obj\Debug\Database1.dll
+D:\Vano1\Git\InternetShop\InternetShop\Database1\obj\Debug\Database1.pdb

@@ -44,9 +44,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -127,7 +124,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="log4net.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -142,6 +139,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\AdministrateController.cs" />
+    <Compile Include="Controllers\AuthorizeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -168,6 +168,23 @@
     <Content Include="Views\Products\Main.cshtml" />
     <Content Include="Views\Products\Products.cshtml" />
     <Content Include="Views\Products\CreateProducts.cshtml" />
+    <Content Include="Views\Authorize\LogIn.cshtml" />
+    <Content Include="Views\Authorize\Register.cshtml" />
+    <Content Include="Views\Products\EditProduct.cshtml" />
+    <Content Include="Views\Products\DelProduct.cshtml" />
+    <Content Include="Views\Products\AboutProduct.cshtml" />
+    <Content Include="Views\Main\Edit.cshtml" />
+    <Content Include="Views\Main\Delete.cshtml" />
+    <Content Include="Views\Order\Order.cshtml" />
+    <Content Include="Views\Order\AboutProduct.cshtml" />
+    <Content Include="Views\Administrate\AllUsers.cshtml" />
+    <Content Include="Views\Administrate\AddUser.cshtml" />
+    <Content Include="Views\Administrate\EditUser.cshtml" />
+    <Content Include="Views\Administrate\DelUser.cshtml" />
+    <Content Include="Views\Administrate\AboutUser.cshtml" />
+    <Content Include="Views\Administrate\EditOrder.cshtml" />
+    <Content Include="Views\Administrate\AboutProduct.cshtml" />
+    <Content Include="Views\Administrate\Orders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -177,7 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuisnesLogic\BuisnesLogic.csproj">
@@ -195,10 +211,6 @@
     <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj">
       <Project>{7510d436-026e-4d22-a918-cfa7442e239f}</Project>
       <Name>DependencyInjection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logger\Logger.csproj">
-      <Project>{78092dd7-3cf7-4eeb-b790-b0235227c0eb}</Project>
-      <Name>Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

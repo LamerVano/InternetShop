@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Common.Order>
+
+@{
+    ViewBag.Title = "Orders";
+    string _role = Common.Constants.COOKIE_ROLE;
+    string _admin = Common.Constants.ADMIN;
+
+}
+
+<h2>Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            Cost
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @Html.HiddenFor(modelItem => item.UserId)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @if (Request.Cookies[_role] != null)
+                {
+                    if (Request.Cookies[_role].Value == _admin)
+                    {
+                        @Html.ActionLink("Edit Order", "EditOrder", new { id = item.OrderId })
+
+                    }
+                } |
+                @Html.ActionLink("About Product", "AboutProduct", new { id = item.OrderId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@if (Request.UrlReferrer != null)
+{
+    if (Request.Url.AbsolutePath != Request.UrlReferrer.AbsolutePath)
+    {
+        <a href="@Request.UrlReferrer.AbsolutePath">Back</a>
+    }
+}
