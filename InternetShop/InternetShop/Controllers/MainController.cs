@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccesLayer;
 using Common;
-using Logger;
 using InternetShop.DependencyResolution;
 
 namespace InternetShop.Controllers

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccesLayer", "DataAcces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{7510D436-026E-4D22-A918-CFA7442E239F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetShopWeb.Tests", "InternetShopWeb.Tests\InternetShopWeb.Tests.csproj", "{7B6E7E7E-5CAA-42A0-B3A0-BB2BFE571105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7510D436-026E-4D22-A918-CFA7442E239F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7510D436-026E-4D22-A918-CFA7442E239F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7510D436-026E-4D22-A918-CFA7442E239F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B6E7E7E-5CAA-42A0-B3A0-BB2BFE571105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B6E7E7E-5CAA-42A0-B3A0-BB2BFE571105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B6E7E7E-5CAA-42A0-B3A0-BB2BFE571105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B6E7E7E-5CAA-42A0-B3A0-BB2BFE571105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
