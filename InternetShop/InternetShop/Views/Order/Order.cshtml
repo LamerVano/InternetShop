@@ -39,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("About", "AboutProduct", new { id = item.Product.ProductId })
+                @Html.ActionLink("About", "AboutProduct", new { id = item.Product.ProductId }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }

@@ -12,48 +12,48 @@
 <div>
     <h4>Product</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
+    
+    <div class="form-horizontal">
+        <h4>Product</h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Edit", "EditProduct", new { id = Model.ProductId }, new { @class = "btn btn-default" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.About)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.About)
-        </dd>
-
-    </dl>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @if(Request.Cookies[_role] != null)
-    {
-        if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
-        {
-             @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId });
-        }
-    }
-       @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId})
-</p>

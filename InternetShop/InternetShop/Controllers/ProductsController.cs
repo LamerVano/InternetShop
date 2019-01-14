@@ -18,9 +18,11 @@ namespace InternetShop.Controllers
         [HttpGet]
         public ActionResult Main(string id)
         {
-            if(id != null & id != "")
+            int categoryId;
+
+            if(Int32.TryParse(id, out categoryId))
             {
-                return View(_accessing.GetProducts(Int32.Parse(id)));
+                return View(_accessing.GetProducts(categoryId));
             }
             else
             {
@@ -30,22 +32,33 @@ namespace InternetShop.Controllers
         [HttpPost]
         public ActionResult Main(string id, string count)
         {
-            Product product = _accessing.GetProduct(Int32.Parse(id));
-            if (Request.Cookies[_role] != null & Request.Cookies[_userId] != null)
+            int productCount, productId;
+
+            if (Int32.TryParse(id, out productId) & Int32.TryParse(count, out productCount))
             {
-                if (Request.Cookies[_role].Value != "" & Request.Cookies[_userId].Value != "")
+                Product product = _accessing.GetProduct(productId);
+
+                if (Request.Cookies[_role] != null & Request.Cookies[_userId] != null)
                 {
-                    if (_accessing.AddOrder(Int32.Parse(Request.Cookies[_userId].Value), product.ProductId, Int32.Parse(count)))
+                    if (Request.Cookies[_role].Value != "" & Request.Cookies[_userId].Value != "")
                     {
-                        ViewBag.Message = "Added";
-                    }
-                    else
-                    {
-                        ViewBag.Message = "Sorry We got touble and Product not Add";
+                        if (_accessing.AddOrder(Int32.Parse(Request.Cookies[_userId].Value), productId, productCount))
+                        {
+                            ViewBag.Message = "Added";
+                        }
+                        else
+                        {
+                            ViewBag.Message = "Sorry We got touble and Product not Add";
+                        }
                     }
                 }
             }
-            return RedirectToAction("Main");
+            else
+            {
+                ViewBag.Message = "Not valid data";
+            }
+            
+            return View();
         }
 
         [HttpGet]
@@ -63,7 +76,9 @@ namespace InternetShop.Controllers
                 return Redirect(Request.UrlReferrer.AbsolutePath);
             }
             else
+            {
                 return RedirectToAction("Main", "Main");
+            }
         }
 
         [HttpPost]
@@ -77,7 +92,7 @@ namespace InternetShop.Controllers
                 }
             }
 
-            ViewBag.Message = "Не добавлено";
+            ViewBag.Message = "Not Added";
             return View();
         }
 
@@ -141,9 +156,11 @@ namespace InternetShop.Controllers
 
         public ActionResult AboutProduct(string id)
         {
-            if (id != null & id != "")
+            int productId;
+
+            if (Int32.TryParse(id, out productId))
             {
-                return View(_accessing.GetProduct(Int32.Parse(id)));
+                return View(_accessing.GetProduct(productId));
             }
             else
             {

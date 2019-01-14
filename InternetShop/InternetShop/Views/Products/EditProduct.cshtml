@@ -64,7 +64,7 @@
 
 <div>
     @Html.HiddenFor(model => model.CategoryId)
-    @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId })
+    @Html.ActionLink("Back to Products", "Main", new { id = Model.CategoryId }, new { @class = "btn btn-default" })
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

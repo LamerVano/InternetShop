@@ -7,7 +7,7 @@
 <h2>AllUsers</h2>
 
 <p>
-    @Html.ActionLink("Add New User", "AddUser")
+    @Html.ActionLink("Add New User", "AddUser", new { }, new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.Role)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditUser", new { id=item.UserId }) |
-            @Html.ActionLink("About", "AboutUser", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "DelUser", new { id=item.UserId })
+            @Html.ActionLink("Edit", "EditUser", new { id=item.UserId }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("About", "AboutUser", new { id=item.UserId }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Delete", "DelUser", new { id=item.UserId }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }
