@@ -10,7 +10,7 @@
     {
         if (Request.Cookies[_role].Value == _admin || Request.Cookies[_role].Value == _moder)
         {
-            <p> @Html.ActionLink("Create New Categories", "CreateCategory", new { id = ViewContext.RouteData.Values["id"] })</p>
+            <p> @Html.ActionLink("Create New Categories", "CreateCategory", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "btn btn-default" })</p>
         }
     }
 <table class="table">
@@ -28,7 +28,7 @@
             @Html.DisplayFor(modelItem => item.Name)            
         </td>
         <td
-            >@Html.ActionLink("To Products", "Main", "Products", new { id = item.CategoryId }, new { })
+            >@Html.ActionLink("To Products", "Main", "Products", new { id = item.CategoryId }, new { @class = "btn btn-default" })
         </td>
         <td>
             @if(Request.Cookies[_role] != null)
@@ -36,8 +36,8 @@
                 if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
                 {
             <p>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new { @class = "btn btn-default" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "btn btn-default" })
             </p>
 
                 }

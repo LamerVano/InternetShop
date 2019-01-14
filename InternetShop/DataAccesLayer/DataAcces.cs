@@ -193,6 +193,7 @@ namespace DataAccesLayer
 
                         order.OrderId = (int)reader["Id"];
                         order.UserId = (int)reader["UserId"];
+                        order.UserName = (string)reader["UserName"];
                         order.ProductId = (int)reader["ProductId"];
                         order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };           
                         order.Count = (int)reader["ProductCount"];
@@ -226,6 +227,7 @@ namespace DataAccesLayer
 
                     order.OrderId = (int)reader["Id"];
                     order.UserId = (int)reader["UserId"];
+                    order.UserName = (string)reader["UserName"];
                     order.ProductId = (int)reader["ProductId"];
                     order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
                     order.Count = (int)reader["ProductCount"];
@@ -431,7 +433,7 @@ namespace DataAccesLayer
             {
                 _numOfConnection++;
                 connection.Close();
-                if (_numOfConnection > 10)
+                if (_numOfConnection > 100)
                 {
                     throw new Exception("Cann't connect to DataBase");
                 }

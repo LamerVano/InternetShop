@@ -47,6 +47,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Orders", "Order", "Order")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Orders", "Order", "Order", new { }, new { @class = "btn btn-default" })
 </p>

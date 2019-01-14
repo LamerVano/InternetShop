@@ -44,6 +44,17 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Back to Orders", "UserOrders", new { id = Model.UserId })
-</p>
+
+@if (Request.UrlReferrer != null)
+{
+    <p>
+        <a href="@Request.UrlReferrer.AbsolutePath" class = "btn btn-default" >Back</a>
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Back to Orders", "Orders", new { }, new { @class = "btn btn-default" })
+    </p>
+
+}

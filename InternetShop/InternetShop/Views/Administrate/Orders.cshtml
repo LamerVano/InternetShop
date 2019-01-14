@@ -53,11 +53,11 @@
                 {
                     if (Request.Cookies[_role].Value == _admin)
                     {
-                        @Html.ActionLink("Edit Order", "EditOrder", new { id = item.OrderId })
+                        @Html.ActionLink("Edit Order", "EditOrder", new { id = item.OrderId }, new { @class = "btn btn-default" })
 
                     }
                 } |
-                @Html.ActionLink("About Product", "AboutProduct", new { id = item.OrderId })
+                @Html.ActionLink("About Product", "AboutProduct", new { id = item.OrderId }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }
@@ -68,6 +68,6 @@
 {
     if (Request.Url.AbsolutePath != Request.UrlReferrer.AbsolutePath)
     {
-        <a href="@Request.UrlReferrer.AbsolutePath">Back</a>
+        <a href="@Request.UrlReferrer.AbsolutePath" class = "btn btn-default" >Back</a>
     }
 }

@@ -112,16 +112,16 @@
     {
         if (Request.Url.AbsolutePath != Request.UrlReferrer.AbsolutePath)
         {
-            <a href="@Request.UrlReferrer.AbsolutePath">Back</a>
+            <a href="@Request.UrlReferrer.AbsolutePath" class = "btn btn-default">Back</a>
         }
         else
         {
-            @Html.ActionLink("Back To Orders", "Orders");
+            @Html.ActionLink("Back To Orders", "Orders", new { }, new { @class = "btn btn-default" });
         }
     }
     else
     {
-        @Html.ActionLink("Back To Orders", "Orders");
+        @Html.ActionLink("Back To Orders", "Orders", new { }, new { @class = "btn btn-default" });
     }
 </div>
 

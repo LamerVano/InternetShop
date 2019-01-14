@@ -13,3 +13,10 @@
 /InternetShop/DependencyInjection/obj/Debug
 /InternetShop/DataAccesLayer/obj/Debug
 /InternetShop/BuisnesLogic/obj/Debug
+/InternetShop/BuisnesLogic/obj
+/InternetShop/Common/obj
+/InternetShop/DataAccesLayer/obj
+/InternetShop/DependencyInjection/obj
+/InternetShop/InternetShop/obj
+/InternetShop/InternetShopWeb.Tests/bin
+/InternetShop/InternetShopWeb.Tests/obj

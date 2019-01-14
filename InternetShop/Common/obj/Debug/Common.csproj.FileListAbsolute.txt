@@ -1,8 +1,0 @@
-D:\Vano1\Git\InternetShop\InternetShop\Common\bin\Debug\Common.dll
-D:\Vano1\Git\InternetShop\InternetShop\Common\bin\Debug\Common.pdb
-D:\Vano1\Git\InternetShop\InternetShop\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
-D:\Vano1\Git\InternetShop\InternetShop\Common\obj\Debug\Common.dll
-D:\Vano1\Git\InternetShop\InternetShop\Common\obj\Debug\Common.pdb
-D:\Vano1\Git\InternetShop\InternetShop\Common\bin\Debug\StructureMap.dll
-D:\Vano1\Git\InternetShop\InternetShop\Common\bin\Debug\StructureMap.xml
-D:\Vano1\Git\InternetShop\InternetShop\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache

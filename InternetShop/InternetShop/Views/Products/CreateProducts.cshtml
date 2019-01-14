@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                 @if(Request.Cookies[_role] != null)
+           @if(Request.Cookies[_role] != null)
             {
                 if(Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
                 {
@@ -60,7 +60,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Main", new { id = ViewContext.RouteData.Values["id"] })
+    @Html.ActionLink("Back to List", "Main", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "btn btn-default" })
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
