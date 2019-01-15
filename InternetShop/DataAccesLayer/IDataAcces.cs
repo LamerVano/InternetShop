@@ -15,6 +15,7 @@ namespace DataAccesLayer
         List<User> GetAllUsers();
         User GetUser(int userId);
         int LogIn(string eMail, string password);
+        List<IModel> Find(string str);
         bool AddCategory(string name);
         bool AddProduct(Product product);
         bool AddOrder(int userId, int productId, int productCount);

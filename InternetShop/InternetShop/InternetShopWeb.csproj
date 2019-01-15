@@ -145,6 +145,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
@@ -188,6 +189,9 @@
     <Content Include="Views\Administrate\Orders.cshtml" />
     <Content Include="Views\Profile\User.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Search\Result.cshtml" />
+    <Content Include="Views\Search\ResultProducts.cshtml" />
+    <Content Include="Views\Search\ResultCategories.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

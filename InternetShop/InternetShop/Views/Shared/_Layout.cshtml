@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Our Internet Shop</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -51,7 +51,15 @@ Response.Cookies.Clear();
                 <li class="navbar-right">@Html.ActionLink("Log In", "LogIn", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
                 <li class="navbar-right">@Html.ActionLink("Registr", "Register", "Authorize", new { area = "" }, new { @class = "navbar-brand" })</li>
 }
-
+                    @using (Html.BeginForm("Result", "Search"))
+                    {
+                <li class="navbar-right">
+                    <input type="text" name="search" class = "navbar-text" />
+                </li>
+                <li class="navbar-right">
+                    <input type="submit" value="Find" class="btn btn-default navbar-btn" />
+                </li>
+                    }
 
 
                 </ul>
@@ -63,7 +71,7 @@ Response.Cookies.Clear();
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Our Internet Shop</p>
         </footer>
     </div>
 

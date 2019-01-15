@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Common.IModel>
+
+@{
+    ViewBag.Title = "Result";
+    IEnumerable<Common.Product> product = Model.OfType<Common.Product>();
+    IEnumerable<Common.Category> category = Model.OfType<Common.Category>();
+}
+
+<h2>Result</h2>
+
+@Html.Partial("ResultProducts", product)
+@Html.Partial("ResultCategories", category)

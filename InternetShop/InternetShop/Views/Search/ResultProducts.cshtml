@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Common.Product>
+
+@{
+    string _role = Common.Constants.COOKIE_ROLE;
+    string _moder = Common.Constants.MODER;
+    string _admin = Common.Constants.ADMIN;
+    string _user = Common.Constants.USER;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Category
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.About)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+            @using (Html.BeginForm("Main","Products"))
+            {
+                if (Request.Cookies[_role] != null)
+                {
+                    if (Request.Cookies[_role].Value == _moder)
+                    {
+                        <td>
+                            @Html.ActionLink("About", "AboutProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" }) |
+                            @Html.ActionLink("Edit", "EditProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" }) |
+                            @Html.ActionLink("Delete", "DelProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" })
+                        </td>
+                        <td>
+                            <input type="submit" value="Добавить в Корзину" class="btn btn-default" />
+                            <input type="hidden" name="id" value=@item.ProductId />
+                            Count
+                            <input type="number" name="count" value="1" />
+                        </td>
+                    }
+                    else if (Request.Cookies[_role].Value == _admin)
+                    {
+
+                        <td>
+                            @Html.ActionLink("About", "AboutProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" }) |
+                            @Html.ActionLink("Edit", "EditProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" }) |
+                            @Html.ActionLink("Delete", "DelProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" })
+                        </td>
+                    }
+                    else if (Request.Cookies[_role].Value == _user)
+                    {
+                        <td>
+                            @Html.ActionLink("About", "AboutProduct", "Products", new { id = item.ProductId }, new { @class = "btn btn-default" })
+                        </td>
+                        <td>
+                            <input type="submit" value="Добавить в Корзину" class="btn btn-default" />
+                            <input type="hidden" name="id" value=@item.ProductId />
+                            Count
+                            <input type="number" name="count" value="1" />
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>@Html.ActionLink("About", "AboutProduct", "Product", new { id = item.ProductId }, new { @class = "btn btn-default" })</td>
+                }
+            }
+
+        </tr>
+    }
+
+</table>
