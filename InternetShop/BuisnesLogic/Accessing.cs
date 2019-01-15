@@ -124,5 +124,9 @@ namespace BuisnesLogic
         {
             return DataAcces.GetAllUsers();
         }
+        public List<IModel> FindAll(string str)
+        {
+            return DataAcces.Find(str);
+        }
     }
 }

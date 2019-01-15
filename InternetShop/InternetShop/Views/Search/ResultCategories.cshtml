@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Common.Category>
+
+@{
+    string _role = Common.Constants.COOKIE_ROLE;
+    string _moder = Common.Constants.MODER;
+    string _admin = Common.Constants.ADMIN;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("To Products", "Main", "Products", new { id = item.CategoryId }, new { @class = "btn btn-default" })
+        </td>
+        <td>
+            @if (Request.Cookies[_role] != null)
+            {
+                if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
+                {
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", "Main", new { id = item.CategoryId }, new { @class = "btn btn-default" }) |
+                        @Html.ActionLink("Delete", "Delete", "Main", new { id = item.CategoryId }, new { @class = "btn btn-default" })
+                    </p>
+
+                }
+            }
+        </td>
+    </tr>
+     }
+
+</table>

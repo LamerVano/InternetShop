@@ -15,6 +15,7 @@ namespace BuisnesLogic
         List<User> GetAllUsers();
         User GetUser(int userId);
         int LogIn(string eMail, string password);
+        List<IModel> FindAll(string str);
         bool AddCategory(string name);
         bool AddProducts(Product product);
         bool AddUser(User user);
