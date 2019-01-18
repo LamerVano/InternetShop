@@ -10,12 +10,15 @@
     <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
+        <td>
+            <img src="/Content/Products/@Model.ProductId@Model.ImggType" />
+        </td>
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
         <dt>

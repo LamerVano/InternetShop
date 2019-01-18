@@ -71,6 +71,31 @@ namespace DataAccesLayer
             return category;
         }
 
+        public int GetCategoryId(int productId)
+        {
+            int id = 0;
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                TryOpenConnection(connection);
+
+                SqlCommand command = new SqlCommand();
+
+                command.CommandText = String.Format("SELECT CategoryId FROM Products WHERE Id = '{0}'", productId);
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    id = (int)reader["Id"];
+                }
+            }
+
+            return id;
+        }
+
         public Product[] GetProducts(int CategoryId)
         {
             List<Product> Products = new List<Product>();
@@ -80,7 +105,7 @@ namespace DataAccesLayer
 
                 SqlCommand command = new SqlCommand();
 
-                command.CommandText = String.Format("SELECT * FROM ProductsView WHERE Id={0}", CategoryId);
+                command.CommandText = String.Format("SELECT * FROM ProductsView WHERE CategoryId={0}", CategoryId);
                 command.Connection = connection;
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -89,8 +114,17 @@ namespace DataAccesLayer
                 {
                     while (reader.Read())
                     {
-                        Product product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["Id"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };
-                        
+                        Product product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"]};
+
+                        try
+                        {
+                            product.ImggType = (string)reader["ImgType"];
+                        }
+                        catch
+                        {
+
+                        }
+
                         Products.Add(product);
                     }
                 }
@@ -126,7 +160,16 @@ namespace DataAccesLayer
                 {
                     reader.Read();
 
-                    product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["Id"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };
+                    product = new Product() { ProductId = (int)reader["Id"], CategoryId = (int)reader["CategoryId"], CategoryName = (string)reader["CategoryName"], Name = (string)reader["Name"], Cost = (double)reader["Cost"], About = (string)reader["About"] };
+
+                    try
+                    {
+                        product.ImggType = (string)reader["ImgType"];
+                    }
+                    catch
+                    {
+
+                    }
                 }
 
                 reader.Close();
@@ -159,7 +202,18 @@ namespace DataAccesLayer
                         order.UserId = (int)reader["UserId"];
                         order.UserName = (string)reader["UserName"];
                         order.ProductId = (int)reader["ProductId"];
-                        order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+
+                        Product product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                        try
+                        {
+                            product.ImggType = (string)reader["ImgType"];
+                        }
+                        catch
+                        {
+
+                        }
+
+                        order.Product = product;
                         order.Count = (int)reader["ProductCount"];
                         order.Status = (string)reader["Status"];
 
@@ -196,7 +250,18 @@ namespace DataAccesLayer
                         order.UserId = (int)reader["UserId"];
                         order.UserName = (string)reader["UserName"];
                         order.ProductId = (int)reader["ProductId"];
-                        order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };           
+
+                        Product product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                        try
+                        {
+                            product.ImggType = (string)reader["ImgType"];
+                        }
+                        catch
+                        {
+
+                        }
+
+                        order.Product = product;
                         order.Count = (int)reader["ProductCount"];
                         order.Status = (string)reader["Status"];
 
@@ -230,7 +295,18 @@ namespace DataAccesLayer
                     order.UserId = (int)reader["UserId"];
                     order.UserName = (string)reader["UserName"];
                     order.ProductId = (int)reader["ProductId"];
-                    order.Product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+
+                    Product product = new Product() { ProductId = (int)reader["ProductId"], Name = (string)reader["ProductName"], Cost = (double)reader["ProductCost"], CategoryId = (int)reader["ProductCategory"], About = (string)reader["About"] };
+                    try
+                    {
+                        product.ImggType = (string)reader["ImgType"];
+                    }
+                    catch
+                    {
+
+                    }
+
+                    order.Product = product;
                     order.Count = (int)reader["ProductCount"];
                     order.Status = (string)reader["Status"];
                 }
@@ -399,7 +475,7 @@ namespace DataAccesLayer
 
         public bool AddProduct(Product product)
         {
-            string sqlExpression = String.Format("INSERT INTO Products (Id, Name, Cost, About) VALUES ('{0}', '{1}','{2}','{3}')", product.CategoryId, product.Name, product.Cost, product.About );
+            string sqlExpression = String.Format("INSERT INTO Products (Id, Name, Cost, About, ImgType) VALUES ('{0}', '{1}','{2}','{3}', '{4}')", product.CategoryId, product.Name, product.Cost, product.About, product.ImggType );
 
             return OneCommand(sqlExpression);
         }
@@ -434,7 +510,7 @@ namespace DataAccesLayer
 
         public bool EditProducts(Product product)
         {
-            string sqlExpression = String.Format("UPDATE Products SET Name = '{1}', Cost = '{2}', About = '{3}' FROM Products WHERE Id={0}", product.ProductId, product.Name,  product.Cost, product.About);
+            string sqlExpression = String.Format("UPDATE Products SET Name = '{1}', Cost = '{2}', About = '{3}', ImgType = '{4}' FROM Products WHERE Id={0}", product.ProductId, product.Name,  product.Cost, product.About, product.ImggType);
 
             return OneCommand(sqlExpression);
         }
@@ -462,7 +538,7 @@ namespace DataAccesLayer
 
         public bool DelProducts(Product product)
         {
-            string sqlExpression = String.Format("DELETE Products WHERE Id={0}", product.ProductId);
+            string sqlExpression = String.Format("DELETE Products WHERE CategoryId={0}", product.ProductId);
 
             return OneCommand(sqlExpression);
         }
