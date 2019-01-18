@@ -22,32 +22,13 @@ namespace InternetShop.Controllers
                 if (Int32.TryParse(cookie, out userId))
                 {
                     if (userId > 0)
-                        return View(_accessing.GetUser(userId));
+                        return View(_accessing.GetUserOrders(userId));
                 }
             }
             return View();
         }
 
-        public ActionResult AddOrder(string id, int count)
-        {
-            Product product = _accessing.GetProduct(Int32.Parse(id));
-            if (Request.Cookies[_role] != null & Request.Cookies[_userId] != null & id != null & id != "")
-            {
-                if(Request.Cookies[_role].Value != "" & Request.Cookies[_userId].Value != "")
-                {
-                    if (_accessing.AddOrder(Int32.Parse(Request.Cookies[_userId].Value), product.ProductId, count))
-                    {
-                        ViewBag.Message = "Added";
-                    }
-                    else
-                    {
-                        ViewBag.Message = "Sorry We got touble and Product not Add";
-                    }
-                }
-            }
-            
-            return Redirect(Request.UrlReferrer.AbsolutePath);
-        }
+        
         public ActionResult AboutProduct(string id)
         {
             if (id != null & id != "")

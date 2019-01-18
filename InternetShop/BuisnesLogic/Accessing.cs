@@ -19,6 +19,11 @@ namespace BuisnesLogic
         {
             return DataAcces.GetCategories();
         }
+        
+        public int GetCategoryId(int productId)
+        {
+            return DataAcces.GetCategoryId(productId);
+        }
 
         public Product[] GetProducts(int CategoryId)
         {

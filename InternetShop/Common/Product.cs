@@ -13,5 +13,6 @@ namespace Common
         [Range(0, double.MaxValue)]
         public double Cost { get; set; }
         public string About { get; set; }
+        public string ImggType { get; set; }
     }
 }

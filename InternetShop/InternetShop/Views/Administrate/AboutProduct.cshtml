@@ -9,6 +9,14 @@
 <div>
     <h4>Product</h4>
     <hr />
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Photo</label>
+        <div class="col-md-10">
+            <img src="/Content/Products/@Model.ProductId@Model.Product.ImggType" />
+        </div>
+    </div>
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Product.CategoryName)

@@ -200,7 +200,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Products\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuisnesLogic\BuisnesLogic.csproj">

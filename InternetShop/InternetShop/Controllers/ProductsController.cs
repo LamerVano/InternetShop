@@ -3,6 +3,7 @@ using Common;
 using InternetShop.DependencyResolution;
 using System;
 using System.Web.Mvc;
+using System.Web;
 
 namespace InternetShop.Controllers
 {
@@ -58,7 +59,7 @@ namespace InternetShop.Controllers
                 ViewBag.Message = "Not valid data";
             }
             
-            return View();
+            return RedirectToAction("Main", new { id = _accessing.GetCategoryId(productId) });
         }
 
         [HttpGet]
@@ -98,26 +99,40 @@ namespace InternetShop.Controllers
 
         public ActionResult EditProduct(string id)
         {
-            if (Request.Cookies[_role] != null)
+            if (Request.Cookies[_role] != null & id != null & id != "")
+            {
                 if (Request.Cookies[_role].Value == _moder || Request.Cookies[_role].Value == _admin)
                 {
                     return View(_accessing.GetProduct(Int32.Parse(id)));
                 }
-            if (Request.UrlReferrer != null || id != null & id != "")
+            }
+            if (Request.UrlReferrer != null)
             {
                 return Redirect(Request.UrlReferrer.AbsolutePath);
             }
             else
+            {
                 return RedirectToAction("Main", "Main");
+            }
         }
 
         [HttpPost]
-        public ActionResult EditProduct(Product product, string Name)
+        public ActionResult EditProduct(Product product, string Name, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    product.ImggType = "." + image.FileName.Split('.')[1];
+
+                    string fileName = product.ProductId + "." + image.FileName.Split('.')[1];
+                    string path = Server.MapPath("~/Content/Products/");
+
+                    image.SaveAs(path + fileName);
+                }
                 if (_accessing.EditProducts(product))
                 {
+
                     return RedirectToAction("Main", new { id = product.CategoryId });
                 }
                 ViewBag.Message = "New State was't Save";
